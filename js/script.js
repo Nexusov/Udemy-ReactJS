@@ -1,4 +1,5 @@
 let numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '')
+let lastMovieName, howRate
 
 let personalMovieDB = {
     count: numberOfFilms,
@@ -8,10 +9,25 @@ let personalMovieDB = {
     privat: false,
 };
 
-let lastMovieName = prompt('Один из последних просмотренных фильмов?', '')
-let howRate = +prompt('На сколько оцените его?', '')
-let lastMovieName2 = prompt('Один из последних просмотренных фильмов?', '')
-let howRate2 = +prompt('На сколько оцените его?', '')
+for (let i = 1; i <= 2; i++) {
+    lastMovieName = prompt('Один из последних просмотренных фильмов?', '')
+    howRate = +prompt('На сколько оцените его?', '')
 
-personalMovieDB.movies[lastMovieName] = howRate
-personalMovieDB.movies[lastMovieName2] = howRate2
+    if (lastMovieName != null && lastMovieName != '' && howRate !== null && howRate !== '' && lastMovieName.length > 50 && howRate.length > 50 ) {
+        personalMovieDB.movies[lastMovieName] = howRate
+    } else {
+        console.log('ERROR')
+        i--
+    }
+}
+
+if (personalMovieDB.count < 10) {
+    console.log('Просмотрено довольно мало фильмов')
+} else if (personalMovieDB >= 10 && personalMovieDB <= 30) {
+    console.log('Вы классический зритель')
+} else if (personalMovieDB > 30) {
+    console.log('Вы киноман')
+} else {
+    console.log('ERROR')
+}
+
