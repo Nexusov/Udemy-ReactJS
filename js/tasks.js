@@ -32,7 +32,7 @@ function pyramide() {
 ошибка" 
 */
 
-//! Number.isInteger() проверка на целое число
+//!    Number.isInteger() проверка на целое число
 
 function calculateVolumeAndArea(cubeWidth) {
     if (cubeWidth < 0 || typeof(cubeWidth) === 'string' || !Number.isInteger(cubeWidth)) { 
@@ -120,6 +120,30 @@ function findMaxNumber(num1, num2, num3, num4) {
     if (typeof(num1) === 'number' && typeof(num2) === 'number' && typeof(num3) === 'number' && typeof(num3) === 'number') {
         console.log(Math.max(num1, num2, num3, num4))  
     } else console.log(0)
+}
+
+/* 
+* ФИБОНАЧЧИ
+Создайте функцию, которая будет принимать в себя один аргумент-целое положительное число. Она должна возвращать строку, в
+которой будут через пробел выведены числа Фибоначчи. Причем, их количество должно быть равно переданному аргументу.
+
+Если переданный аргумент не число - вернуть 'ERROR'. Решать без применения рекурсии.
+*/
+
+function fib(count) {
+    if (!Number.isInteger(count) || typeof(count) === 'string' || isNaN(count) || count < 1) {
+        console.log('ERROR')
+    } else if (count === 1) {
+        console.log('0')
+    } else {
+        let array = [0 , 1]
+        result = '0 1'
+        for (let i = 2; i < count; i++) {
+            array[i] = array[i - 1] + array[i - 2];
+            result = result + ` ${array[i]}`
+        }
+        console.log(result)
+    }
 }
 
 
