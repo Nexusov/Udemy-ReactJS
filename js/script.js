@@ -12,6 +12,8 @@ function start() {
     while (numberOfFilms === '' || numberOfFilms === null || isNaN(numberOfFilms)) {
         numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '')
     }
+    let x = document.getElementsByTagName(body)
+    x.style.color = red;
 }
 
 function showMyDB(hidden) {
@@ -60,6 +62,9 @@ function detectPersonalLevel() {
 start()
 remeberMyFilms()
 detectPersonalLevel()
+
+
+
 
 
 
