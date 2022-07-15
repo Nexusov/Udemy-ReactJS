@@ -10,10 +10,8 @@ let personalMovieDB = {
 
 function start() {
     while (numberOfFilms === '' || numberOfFilms === null || isNaN(numberOfFilms)) {
-        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '')
+        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '').trim()
     }
-    let x = document.getElementsByTagName(body)
-    x.style.color = red;
 }
 
 function showMyDB(hidden) {
@@ -26,15 +24,13 @@ showMyDB(personalMovieDB.private)
 
 function writeYourGenres() {
     for (let i = 1; i <= 3; i++) {
-        personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`)
+        personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`).trim()
     }
 }
 
-writeYourGenres()
-
 function remeberMyFilms() {
     for (let i = 0; i < 2; i++) {
-        let lastMovieName = prompt('Один из последних просмотренных фильмов?', '')
+        let lastMovieName = prompt('Один из последних просмотренных фильмов?', '').trim()
         let howRate = +prompt('На сколько оцените его?', '')
     
         if (lastMovieName != null && lastMovieName != '' && howRate != null && howRate != '' && lastMovieName.length < 50) {
@@ -60,6 +56,7 @@ function detectPersonalLevel() {
 }
 
 start()
+writeYourGenres()
 remeberMyFilms()
 detectPersonalLevel()
 
