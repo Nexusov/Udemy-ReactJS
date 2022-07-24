@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+#parentContainer {
+    width: 400px;
+    height: 400px;
+    background-color: #f55353;
+}
+
+#childContainer {
+    width: 100px;
+    height: 100px;
+    background-color: #feb139;
+}
+
+/** HTML CODE FOR CENTERING */
+/* 
+<div id="parentContainer">
+    <div id="childContainer"></div>
+</div> 
+*/
+
+
+/** HOW TO CENTER A DIV. 1 */
+
+/* #parentContainer {
+    position: relative;
+}
+
+#childContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
+
+/* ===================================== */
+
+/** HOW TO CENTER A DIV. 2 */
+
+/* #parentContainer {
+    position: relative;
+}
+
+#childContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+} */
+
+/* ===================================== */
+
+/** HOW TO CENTER A DIV. 3 */
+
+/* #parentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* ===================================== */
+
+/** HOW TO CENTER A DIV. 4 */
+
+/* #parentContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#childContainer {
+    align-self: center;
+} */
+
+/* ===================================== */
+
+/** HOW TO CENTER A DIV. 5 */
+
+/* #parentContainer {
+    display: flex;
+}
+
+#childContainer {
+    margin: auto;
+} */
+
+/* ===================================== */
+
+/** HOW TO CENTER A DIV. 6 */
+
+/* #parentContainer {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* ===================================== */
+
+/** HOW TO CENTER A DIV. 7 */
+
+/* #parentContainer {
+    display: grid;
+    place-items: center;
+} */
+
+/* ===================================== */
+
+/** HOW TO CENTER A DIV. 8 */
+
+/* #parentContainer {
+    display: grid;
+}
+
+#childContainer {
+    align-self: center;
+    justify-self: center;
+}*/
+
+/* ===================================== */
+
+/** HOW TO CENTER A DIV. 9 */
+
+/* #parentContainer {
+    display: grid;
+}
+
+#childContainer {
+    place-self: center;
+} */
+
+/* ===================================== */
+
+/** HOW TO CENTER A DIV. 10 */
+
+/* #parentContainer {
+    display: grid;
+}
+
+#childContainer {
+    margin: auto;
+} */
+
+/* ===================================== */
