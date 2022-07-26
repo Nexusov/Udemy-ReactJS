@@ -160,3 +160,23 @@ const numbersObject = {
 const newNumbersObject = {...numbersObject}
 console.log(newNumbersObject) // копия numbersObject без всяких там циклов и тп
 
+
+
+const soldier = {
+    health: 400,
+    armor: 50
+}
+
+const Oleg = {
+    health: 100,
+}
+
+Oleg.__proto__ = soldier; // устаревший формат создания прототипа
+
+// СОВРЕМЕННЫЙ ФОРМАТ ПРОТОТИПИРОВАНИЯ:
+Object.setPrototypeOf(Oleg, soldier) // прототипируем, уже имеющийся объект Oleg
+
+const Vasya = Object.create(soldier) // создали новоый объект Vasya, который прототипно наследуется от solier 
+
+console.log(Oleg.health) // 400
+console.log(Vasya.armor) // 50
