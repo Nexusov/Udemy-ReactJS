@@ -122,6 +122,7 @@ function findMaxNumber(num1, num2, num3, num4) {
     } else console.log(0)
 }
 
+
 /* 
 * ФИБОНАЧЧИ
 Создайте функцию, которая будет принимать в себя один аргумент-целое положительное число. Она должна возвращать строку, в
@@ -147,3 +148,19 @@ function fib(count) {
 }
 
 
+/* 
+Напишите функцию reverse, которая принимает в себя строку и возвращает эту строку в обратном порядке
+*/
+
+const someString = 'This is some strange string';
+
+function reverse(str) {
+    let reverseArray = str.split(' ').reverse()
+    let reverseStr = ''
+    reverseArray.forEach((word) => {
+        let reverseWord = word.split('').reverse()
+        reverseStr = reverseStr + `${reverseWord.join('')} `
+    })
+    console.log(reverseStr)
+}
+reverse(someString)
