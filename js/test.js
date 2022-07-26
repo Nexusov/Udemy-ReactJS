@@ -64,3 +64,99 @@ const products = str.split(", ") // указываем разделитель
 console.log(products)
 console.log(products.join(';')) // указываем разделитель для создания строки
 console.log(products.sort()) // сортировка по алфавиту
+
+
+
+let a = 5
+    b = a;
+
+b = b + 5
+console.log(b) // 10
+console.log(a) // 5
+
+const obj = {
+    a: 5,
+    b: 1
+}
+
+const copy = obj
+copy.a = 10
+
+console.log(obj) 
+console.log(copy) // copy и obj идентичны, хотя меняли а только в copy
+
+function copyObj(mainObj) {
+    let objCopy = {}
+    
+    for (const key in mainObj) {
+        objCopy[key] = mainObj[key]
+    }
+    return objCopy
+}
+
+const numbers = {
+    a: 2,
+    b: 5,
+    c: {
+        x: 7,
+        y: 4
+    }
+}
+
+const newNumbers = copyObj(numbers)
+numbers.a = 50
+numbers.c.x = 100
+console.log(numbers) // a = 50, х = 100
+console.log(newNumbers) // a = 2, но тоже х = 100 (получилась поверхностная копия)
+
+
+const add = {
+    d: 17,
+    e: 20
+}
+console.log(Object.assign(numbers, add)) // соединили 2 объекта
+
+
+const clone = Object.assign({}, add)
+clone.d = 20
+
+console.log(add) // d = 17, e = 20
+console.log(clone) // d = 20, e = 20
+
+
+
+const oldArray = ['a', 'b', 'c']
+const newArray = oldArray.slice()
+console.log(newArray) // копия oldArray
+
+const letters = ['a', 'b']
+const newLetters = [...letters] // копия letters вместо метода .slice()
+
+
+newArray[1] = 'klsdflkds'
+console.log(newArray) // [ 'a', 'klsdflkds', 'c' ]
+console.log(oldArray) // [ 'a', 'b', 'c' ]
+
+
+const video = ['YouTube', 'Vimeo', 'Twitch']
+const blogs = ['WordPress', 'LiveJournal', 'blogger']
+const internet = [...video, ...blogs, 'instagram', 'telegram']
+console.log(internet) // соединили 2 массива в 3й и еще добавили свои данные
+
+
+function log(a, b, c) {
+    console.log(a, b, c)
+}
+const num = [2, 5, 7]
+
+log(num) // [ 2, 5, 7 ] undefined undefined
+log(...num) // 2 5 7
+
+const numbersObject = {
+    one: 1,
+    two: 2
+}
+
+const newNumbersObject = {...numbersObject}
+console.log(newNumbersObject) // копия numbersObject без всяких там циклов и тп
+
