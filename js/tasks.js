@@ -164,3 +164,34 @@ function reverse(str) {
     console.log(reverseStr)
 }
 reverse(someString)
+
+
+/* 
+У вас есть список учеников, которые хотят поиграть в игру.
+Но команд может быть только 3 по 3 человека. Напишите Функцию, которая принимает в себя массив строк.
+
+Внутри она сначала сортирует имена по алфавиту. Затем распределяет учеников по 3 человека в 3 группы по алфавитному порядку.
+Эти группы должны быть массивами. Как итог, функция возвращает новый массив с тремя командами и строкой как 4й элемент.
+*/
+
+const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam', 'Oleg'];
+
+function sortStudentsByGroups(arr) {
+    let team1 = [], team2 = [], team3 = [],
+        leftStudents = []
+
+    arr.sort()
+    for (let i = 0; i < arr.length; i++) {
+        if (i < 3) {
+            team1.push(arr[i]);
+        } else if (i < 6) {
+            team2.push(arr[i]);
+        } else if (i < 9) {
+            team3.push(arr[i]);
+        } else {
+            leftStudents.push(arr[i]);
+        }
+    }
+    console.log([team1, team2, team3, `Оставшиеся студенты: ${leftStudents.length === 0 ? '-' : leftStudents.join(', ')}`])
+}
+sortStudentsByGroups(students)
