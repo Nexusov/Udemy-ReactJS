@@ -195,3 +195,85 @@ function sortStudentsByGroups(arr) {
     console.log([team1, team2, team3, `Оставшиеся студенты: ${leftStudents.length === 0 ? '-' : leftStudents.join(', ')}`])
 }
 sortStudentsByGroups(students)
+
+
+/* ========================Ресторан===================================== */
+const restorantData = {
+    menu: [
+        {
+            name: 'Salad Caesar',
+            price: '14$'
+        },
+        {
+            name: 'Pizza Diavola',
+            price: '9$'
+        },
+        {
+            name: 'Beefsteak',
+            price: '17$'
+        },
+        {
+            name: 'Napoleon',
+            price: '7$'
+        }
+    ],
+    waitors: [
+        {name: 'Alice', age: 22}, {name: 'John', age: 24}
+    ],
+    averageLunchPrice: '20$',
+    openNow: true
+};
+
+
+
+/* 
+    Вывести 'Закрыто', если openNow === true, иначе вывести 'Открыто'
+*/
+function isOpen(prop) {
+    let answer = '';
+    prop ? answer = 'Закрыто' : answer = 'Открыто';
+
+    return answer;
+}
+console.log(isOpen(restorantData.openNow))
+
+
+
+/* 
+    Функция isAverageLunchPriceTrue должна брать цены двух любых блюд из меню, складывать их и сравнивать со средним чеком averageLunchPrice
+*/
+
+random1 = Math.floor(Math.floor(Math.random() * 4))
+random2 = Math.floor(Math.floor(Math.random() * 4))
+
+function isAverageLunchPriceTrue(fDish, sDish, average) {
+    while (random1 === random2) {
+        random2 = Math.floor(Math.floor(Math.random() * 4))
+    }
+
+    if (+fDish.price.slice(0, -1) + +sDish.price.slice(0, -1) < +average.slice(0, -1)) {
+        return 'Цена ниже средней';
+    } else {
+        return 'Цена выше средней';
+    }
+}
+console.log(isAverageLunchPriceTrue(restorantData.menu[random1], restorantData.menu[random2], restorantData.averageLunchPrice));
+
+
+/* 
+    Функция transferWaitors создана для того, чтобы копировать шаблон данных и передавать их в другой ресторан. Сейчас эта функция должна менять данные про официантов. 
+Но в нынешнем виде мы обнаружили, что после её запуска не только копия данных содержит новых официантов, но и основные данные! 
+В restorantData сотрудник Alice исчезает и заменяется Mike! Необходимо найти причину и немедленно исправить, чтобы данные были разделены.
+*/
+
+function transferWaitors(data) {
+    const copy = Object.assign({}, data);
+
+//  copy.waitors[0] = {name: 'Mike', age: 32}; БЫЛО
+    copy.waitors = [{name: 'Mike', age: 32}]; // СТАЛО
+    return copy;
+}
+
+console.log(transferWaitors(restorantData))
+
+/* ======================================================================== */
