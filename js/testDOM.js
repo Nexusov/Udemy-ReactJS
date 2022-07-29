@@ -72,3 +72,81 @@ div.insertAdjacentElement('afterbegin', '<h2>HELLO</h2>');
 div.insertAdjacentElement('afterend', '<h2>HELLO</h2>');
 div.insertAdjacentElement('beforebegin', '<h2>HELLO</h2>');
 div.insertAdjacentElement('beforeend', '<h2>HELLO</h2>');
+
+
+
+const btn = document.querySelector('button')
+
+btn.onclick = () => { // не очень правильный обработчик событий
+    alert('TEXT')
+}
+
+btn.addEventListener('click', () => { // правильный обработчки событий, так как их может быть несколько и они сработают 
+    alert('TEXT')
+})
+
+btn.addEventListener('click', () => { // выполнится сразу после верхнего
+    alert('TEXT2')
+})
+
+btn.addEventListener('mouseenter', (e) => { 
+    console.log(e) // выводим EVENT в консоль
+})
+
+btn.addEventListener('mouseenter', (e) => { 
+    console.log(e.target.remove()) // удаляем элемент при наведении
+})
+
+
+const deletElement = (e) => { 
+    console.log(e.target.remove()) 
+}
+
+btn.addEventListener('click', deletElement)  // eventlistener через переменную
+
+btn.removeEventListener('click', deletElement) // удаляем обработчик
+
+let i = 0
+const deletElement2 = (e) => { 
+    console.log(e.target.remove()) 
+    i++
+    if (i === 1) {
+        btn.removeEventListener('click', deletElement) 
+    }
+}
+
+let overlay = document.querySelector('.overlay')
+
+const deletElement3 = (e) => { 
+    console.log(e.currentTarget) 
+    console.log(e.type) 
+    i++
+    if (i === 1) {
+        btn.removeEventListener('click', deletElement) 
+    }
+}
+overlay.addEventListener('click', deletElement3)  
+
+
+
+/* отменяем стандартное поведение браузера */
+
+const link = document.querySelector('a')
+
+link.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    console.log(event.target)
+})
+
+
+
+/* вешаем обработчки на несколько элементов */
+
+btns.forEach(button => {
+    addEventListener('click', deletElement)
+});
+
+
+
+addEventListener('click', deletElement, {once: true}) // {once: true} - говорит, что выполнить только 1 раз. Можно не цикл со счетчиком и удалять руками
