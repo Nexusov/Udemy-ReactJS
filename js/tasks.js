@@ -148,6 +148,32 @@ function fib(count) {
 }
 
 
+
+/* 
+Напишите функцию, которая вычисляет факториал, используя рекурсию
+*/
+
+function factorial(number) {
+    if (typeof(number) !== 'number' || !Number.isInteger(number)) {
+        return 'Некорректное число'
+    }
+
+    if (number >= 1) {
+        return number * factorial(number - 1)
+    } else {
+        return 1
+    }
+}
+console.log(factorial(5))  
+
+function factorialShort(number) { // КОРОТКОЕ РЕШЕНИЕ, НО МОЖЕТ ПРИНЯТЬ ОТРИЦАТЕЛЬНОЕ ЗНАЧЕНИЕ И ТЕКСТ
+    return number ? number * factorialShort(number - 1) : 1;
+}
+
+console.log(factorialShort(5))
+
+
+
 /* 
 Напишите функцию reverse, которая принимает в себя строку и возвращает эту строку в обратном порядке
 */
@@ -277,3 +303,4 @@ function transferWaitors(data) {
 console.log(transferWaitors(restorantData))
 
 /* ======================================================================== */
+

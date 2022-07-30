@@ -17,7 +17,6 @@ const {border, bg} = options.colors
 console.log(border) // black
 
 for (let key in options) {
-	
 	if (typeof options[key] === 'object') {
 		for (let i in options[key]) {
 			console.log(`Свойство ${i} имеет значение ${options[key][i]}`);
@@ -180,3 +179,105 @@ const Vasya = Object.create(soldier) // создали новоый объект
 
 console.log(Oleg.health) // 400
 console.log(Vasya.armor) // 50
+
+
+/* Рекурсия */
+
+function pow(number, power) { // функция возведения в степень без рекурсии
+    let result = 1
+
+    for (let i = 0; i < power; i++) {
+        result = number * result
+    }
+    return result
+
+}
+function pow(number, power) { // функция возведения в степень с помощью рекурсии
+    if (power === 1) {
+        return number
+    } else {
+        return number * pow(number, power - 1)
+    }
+}
+
+
+let students = {
+    js: [
+        {
+            name: 'John',
+            progress: 100
+        },
+        {
+            name: 'Ivan',
+            progress: 60
+        }
+    ],
+
+    html: {
+        basic: [
+            {
+                name: 'Peter',
+                progress: 20
+            }, 
+            {
+                name: 'Ann',
+                progress: 18
+            }
+        ],
+        pro: [
+            {
+                name: 'Sam',
+                progress: 10
+            }
+        ]
+    }
+}
+
+function getTotalProgressByIteration(data) { // получаем средний результат студентов без рекурсии
+    let total = 0;
+    let students = 0;
+
+    for (let course of Object.values(data)) {
+        if (Array.isArray(course)) { // проверяем на массив
+            students += course.length
+
+            for (let i = 0; i < course.length; i++) {
+                total += course[i].progress
+            }
+        } else {
+            for (let subScourse of Object.values(course)) {
+                students += subScourse.length
+
+                for (let i = 0; i < subScourse.length; i++) {
+                    total += subScourse[i].progress
+                }
+            }
+        }
+    }
+
+    return total / students
+}
+console.log(getTotalProgressByIteration(students))
+
+function getTotalProgressByRecursion(data) { // получаем средний результат студентов c помощью рекурсии
+    if (Array.isArray(data)) { 
+        let total = 0;
+
+        for (let i = 0; i < data.length; i++) {
+            total += data[i].progress
+        }
+
+        return [total, data.length]
+    } else {
+        let total = [0, 0]
+
+        for (let subData of Object.values(data)) {
+            const subDataArray = getTotalProgressByRecursion(subData)
+            total[0] += subDataArray[0]
+            total[1] += subDataArray[1]
+        }
+        return total
+    }
+}
+const result = getTotalProgressByRecursion(students)
+console.log(result[0] / result[1])
