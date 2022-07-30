@@ -1,43 +1,56 @@
-let ads = document.querySelectorAll('.promo__adv img')
-let poster = document.querySelector('.promo__bg')
-let genre = poster.querySelector('.promo__genre')
-let moviesList = document.querySelector('.promo__interactive-list')
+document.addEventListener('DOMContentLoaded', () => {
+	let ads = document.querySelectorAll('.promo__adv img');
+	let poster = document.querySelector('.promo__bg');
+	let genre = poster.querySelector('.promo__genre');
+	let moviesList = document.querySelector('.promo__interactive-list');
 
-console.log(moviesList)
+	console.log(moviesList);
 
-/* Удалить все рекламные блоки */
-ads.forEach((item) => {
-    item.remove()
-})
+	/* Удалить все рекламные блоки */
+	ads.forEach((item) => {
+		item.remove();
+	});
 
-/* Поменять жанр на "Драма" */
-genre.textContent = 'Драма'
+	/* Поменять жанр на "Драма" */
+	genre.textContent = 'Драма';
 
-/* Заменить постер */
-poster.style.backgroundImage = 'url("/img/bg.jpg")'
+	/* Заменить постер */
+	poster.style.backgroundImage = 'url("/img/bg.jpg")';
 
-const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против...",
-    ]
-};
+	const movieDB = {
+		movies: [
+			'Логан',
+			'Лига справедливости',
+			'Ла-ла лэнд',
+			'Одержимость',
+			'Скотт Пилигрим против...',
+		],
+	};
 
+	/* Сформировать список фильмов на основании объекта movieDB и отсортировать их по алфавиту. Добавить нумерацию */
 
-/* Сформировать список фильмов на основании объекта movieDB и отсортировать их по алфавиту. Добавить нумерацию */
+	moviesList.innerHTML = ''; // очищаем список фильмов
 
-moviesList.innerHTML = '' // очищаем список фильмов
+	movieDB.movies.sort(); // сортируем фильмы по алфавиту
 
-movieDB.movies.sort() // сортируем фильмы по алфавиту
-
-movieDB.movies.forEach((movie, i) => {
-	moviesList.innerHTML += `
+	movieDB.movies.forEach((movie, i) => {
+		moviesList.innerHTML += `
     <li class="promo__interactive-item">${i + 1} ${movie}
         <div class="delete"></div>
     </li>
     `;
-});
+	});
 
+    /* добавить новый фильм пользователя в список */
+
+	let newMovieInput = document.querySelector('.adding__input');
+	let addMovie = document.querySelector('.add');
+	let subButton = addMovie.querySelector('button');
+
+	subButton.addEventListener('submit', (event) => { 
+		event.preventDefault();
+		console.log(movieDB.movies);
+
+		movieDB.movies.push = newMovieInput.value;
+	});
+});
