@@ -41,16 +41,4 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 	});
 
-    /* добавить новый фильм пользователя в список */
-
-	let newMovieInput = document.querySelector('.adding__input');
-	let addMovie = document.querySelector('.add');
-	let subButton = addMovie.querySelector('button');
-
-	subButton.addEventListener('submit', (event) => { 
-		event.preventDefault();
-		console.log(movieDB.movies);
-
-		movieDB.movies.push = newMovieInput.value;
-	});
 });
