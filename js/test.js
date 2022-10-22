@@ -438,3 +438,71 @@ const newPersonObj = Object.fromEntries(personMap)
 console.log(newPersonObj)
 
 //* ===================================================================================== */
+
+
+
+//* =================================== SET =============================================== */
+
+const arr = [1, 1, 2, 2, 4, 5, 6, 5]
+
+const mySet = new Set(arr) 
+console.log(mySet) // { 1, 2, 4, 5, 6 } Значения без повторений! 
+
+
+const names = ['Alex', 'Ann', 'Oleg', 'Alex', 'Oleg', 'Ann']
+
+const myNameSet = new Set(names) 
+console.log(myNameSet) // { 'Alex', 'Ann', 'Oleg' } Значения без повторений! 
+
+
+// Фильтруем массив на повторы с помощью Set и обратно превращаем в массив
+function unique(arr) {
+    return Array.from(new Set(arr))
+}
+console.log(unique(arr)) // [ 1, 2, 4, 5, 6 ]
+
+
+// Set.add() Добавляет новое уникальное значение
+
+myNameSet.add('Ivan')
+myNameSet.add('Alex')
+console.log(myNameSet) // { 'Alex', 'Ann', 'Oleg', 'Ivan' }
+
+// Set.delete() удаляет значение
+
+myNameSet.delete('Alex')
+console.log(myNameSet) // { 'Ann', 'Oleg', 'Ivan' } 
+
+// Set.has() проверяет на наличие значения
+
+console.log(myNameSet.has('Ann')) // true
+
+// Set.size свойство, которое возвращает размер set
+
+console.log(myNameSet.size) // 3
+
+// Set.clear() полностью очищает set
+
+myNameSet.clear()
+console.log(myNameSet) // myNameSet пустой
+
+// ПЕРЕБОР SET'a
+
+for (const value of myNameSet) {
+    console.log(value)
+}
+
+myNameSet.forEach((value, value2, set) => {
+    console.log(value, value2) // Ann Ann, Oleg Oleg, Ivan Ivan
+    console.log(value) // Ann, Oleg, Ivan
+})
+
+
+// Set.values() и Set.keys() возвращают значения set
+
+console.log(myNameSet.values()) // { 'Ann', 'Oleg', 'Ivan' }
+
+console.log(myNameSet.keys()) // { 'Ann', 'Oleg', 'Ivan' }
+
+
+//* ======================================================================================= */
