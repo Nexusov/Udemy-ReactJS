@@ -281,3 +281,47 @@ function getTotalProgressByRecursion(data) { // получаем средний 
 }
 const result = getTotalProgressByRecursion(students)
 console.log(result[0] / result[1])
+
+
+//* =========== ДЕСКРИПТОРЫ СВОЙСТВ И ПОЛЕЗНЫЕ МЕТОДЫ ОБЪЕКТОВ ========================== */
+
+// writable (если true, то свойство в объекте можно изменить)
+
+// enumerable (если true, то свойство будет перечисляться в циклах)
+
+// configurable (если true, то свойство можно удалить, а его атрибуты изменить)
+const myUser = {
+    name: 'Alex',
+    surname: 'Smith',
+    birthday: '20/04/1993',
+    showMyPublicData: function() {
+        console.log(`${this.name} ${this.surname}`)
+    }
+}
+
+console.log(Object.getOwnPropertyDescriptor(myUser, 'name')) // выводим флаги у name
+
+Object.defineProperty(myUser, 'name', {writable: false}) // делаем флаг writable = false у объекта и теперь мы не можем поменять name у объекта
+Object.defineProperty(myUser, 'gender', {value: 'male'}) // все флаги по дефолту false, потому что мы не указали их
+
+
+Object.defineProperty(myUser, 'nickname', {value: prompt('Write your nickname here...'), enumerable: true, configurable: true}) // создали новое свойство у объекта со своими настройками флагов
+
+
+
+Object.defineProperty(myUser, 'showMyPublicData', {enumerable: false}) // теперь showMyPublicData не показывается при перечислении свойств объекта циклом
+
+for (const key in myUser) {
+    console.log(key) // name, surname, birthday, НО НЕ ВЫВЕДЕТ showMyPublicData
+}
+
+
+Object.defineProperty(Math, 'PI') // у числа пи все флаги false по дефолту и его нельзя никак изменить
+
+
+Object.defineProperties(myUser, {
+    name: {writable: false},
+    surname: {writable: true}
+}) // сразу нескольким свойствам меняем флаги
+
+//* ===================================================================================== */
