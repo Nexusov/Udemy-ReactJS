@@ -179,3 +179,21 @@ for (let node of document.body.childNodes) { // избавляемся от те
     }
     console.log(node)
 }
+
+
+//* =================================== ClassList и делегирование событий =============================================== */
+
+const btns = document.querySelectorAll('button')
+
+console.log(btns[0].classList.item(0)) // получаем первый класс элемента (class="blue some"), то тут мы получим blue
+
+btns[0].classList.add('red') // добавляем элементу класс 'red'
+btns[0].classList.add('black', 'gold', 'yellow') // добавляем элементу несколько классов
+btns[0].classList.remove('blue') // удаляем у элeмента класс 'blue'
+btns[0].classList.toggle('blue') // если класс 'blue 'существует, то он удаляется, иначе - добавляется
+
+if (btns[1].classList.contains('green')) {
+    console.log('выведи это, если у элемента есть класс "green"')
+}else console.log('выведи тогда это, так как такого класса нет')
+
+//* ===================================================================================================================== */
