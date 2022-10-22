@@ -325,3 +325,116 @@ Object.defineProperties(myUser, {
 }) // сразу нескольким свойствам меняем флаги
 
 //* ===================================================================================== */
+
+
+//* =================================== MAP (КАРТА) =============================================== */
+
+
+const shops = [
+    {rice: 500},
+    {oil: 200},
+    {bread: 50},
+]
+
+const myMap = new Map()
+
+
+// Map.set() Создает ключ-значение, где ключ может быть объектом
+
+myMap.set(shops[0], 5000)
+console.log(myMap) // { { rice: 500 } => 5000 }
+
+
+const budget = [9999, 3923, 1111]
+
+shops.forEach((shop, i) => {
+    myMap.set(shop, budget[i]) // заполнили карту с помощью цикла
+});
+
+
+// Map.get() получаем значение ключа
+
+console.log(myMap.get(shops[0])) // 9999
+
+// Map.has() проверяет на наличие внутри карты
+
+console.log(myMap.has(shops[0])) // true
+console.log(myMap.has(shops[10])) // false
+
+// Map.size свойство карты, которое вернет кол-во элементов внутри карты
+
+console.log(myMap.size ) // 3
+
+// Map.delete() удяляет из карты по ключу
+
+myMap.delete(shops[0])
+
+// Map.clear() полностью очищает карту
+
+myMap.clear()
+
+// Map.keys() возвращает итерируемый объект по ключам
+
+for (let key of myMap.keys()) {
+    console.log(key)
+}
+
+
+
+const goods = []
+for (let key of myMap.keys()) {
+    goods.push(Object.keys(key)[0])
+}
+console.log(goods) //  rice, oil, bread
+
+
+// Map.values() возвращает значение
+
+for (let price of myMap.values()) {
+    console.log(price) // 999, 3923, 1111
+}
+
+// Map.entries() возвращает итерируемый объект по парам вида [ключ, значение]
+
+for (let price of myMap.entries()) {
+    console.log(price) 
+}
+
+for (let [shop, price] of myMap.entries()) {
+    console.log(shop, price) 
+}
+
+
+
+myMap.forEach((value, key, map) => {
+    console.log(key, value) // еще способ перебора карты
+})
+
+
+
+const custoMap = new Map([
+    [{paper: 400}, 8000] // так устроена Map внутри. Массив с массивами
+])
+
+
+// ПРЕВРАЩАЕМ ОБЪЕКТ В КАРТУ
+
+const myPerson = {
+    name: 'Alex',
+    surname: 'Smith',
+    birthday: '20/04/1993',
+    showMyPublicData: function() {
+        console.log(`${this.name} ${this.surname}`)
+    }
+}
+
+const personMap = new Map(Object.entries(myPerson))
+console.log(personMap)
+
+
+// ПРЕВРАЩАЕМ КАРТУ В ОБЪЕКТ
+
+const newPersonObj = Object.fromEntries(personMap)
+console.log(newPersonObj)
+
+//* ===================================================================================== */
