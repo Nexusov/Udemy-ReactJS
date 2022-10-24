@@ -506,3 +506,131 @@ console.log(myNameSet.keys()) // { 'Ann', 'Oleg', 'Ivan' }
 
 
 //* ======================================================================================= */
+
+
+//* ======================================= WeakMap ======================================= */
+
+let user = {
+    name:'Ivan'
+}
+
+let myNewMap = new kMap()
+
+myNewMap.set(user,'data')
+
+user = null // удаляем объект из памяти
+
+console.log(myNewMap.has(user)) // true (объект не удалился)
+
+
+
+let weakUser = {
+    name:'Ivan'
+}
+
+let myWeakMap = new WeakMap()
+
+myWeakMap.set(weakUser,'data')
+
+weakUser = null // удаляем объект из памяти
+
+console.log(myWeakMap.has(weakUser)) // false (объект удалился)
+
+
+
+
+let cache = new WeakMap()
+
+function cacheUser(user) {
+    if (!cache.has(user)) { // если пользователя нет внутри кэша
+        cache.set(user, Date.now())
+    }
+
+    return cache.get(user)
+}
+
+let lena = {name: 'Elena'}
+let alex = {name: 'Alex'}
+
+cacheUser(lena)
+cacheUser(alex)
+
+lena = null
+
+console.log(cache.has(lena)) // false 
+console.log(cache.has(alex)) // true
+
+
+
+
+//* =============== WeakSet ============== */
+
+// WeakSet поддерживает только .add(), .has(), .delete()
+
+let messages = [
+    {text: 'Hello', from: 'John'},
+    {text: 'World', from: 'Anton'},
+    {text: 'okay', from: 'Yegor'},
+]
+
+let readMessages = new WeakSet()
+
+readMessages.add(messages[0])
+readMessages.add(messages[1])
+
+readMessages.add(messages[0]) // не добавится еще раз в weakSet 
+
+
+messages.shift() // удаляем первый объект
+
+//* ======================================================================================= */
+
+
+
+
+//* ======================================= Date ======================================= */
+
+// месяцы считаются с нуля. То есть январь - нулевой месяц
+
+const now = new Date()
+
+console.log(now) // 2022-10-24T17:50:04.602Z
+
+console.log(now.getFullYear()) // 2022
+console.log(now.getMonth()) // 9
+console.log(now.getDate()) // 24
+console.log(now.getDay()) // 2 (день недели, начиная с воскресенья = 0)
+console.log(now.getHours()) // 17
+console.log(now.getUTCHours()) // 21
+console.log(now.getTime()) // 1666646880550 (время в милисекундах с 1970)
+console.log(now.getTimezoneOffset()) // -180 (разница между часовым поясом и UTC в минутах) 
+
+now.setHours(18) // поменял часы на 18
+now.setMinutes(45) // поменял минуты на 45
+now.setHours(18, 45) // поменял время на 18ч 45м
+
+
+const customDate = new Date('2222-12-22')
+console.log(customDate) // 2222-12-22T00:00:00.000Z
+
+const commaDate = new Date(2020, 5, 1, 20)
+console.log(commaDate) // 2020-06-01T17:00:00.000Z
+
+const oldDate = new Date(0)
+console.log(oldDate) // 1970-01-01T00:00:00.000Z
+
+const veryOldDate = new Date(-9999999999)
+console.log(veryOldDate) // 1969-09-07T06:13:20.001Z
+
+
+
+let start = new Date()
+
+for (let i = 0; i < 100000; i++) {
+    let some = i ** 3
+}
+
+let end = new Date()
+console.log(`Цикл отработал за ${end - start} милисекунд`)
+
+//* ==================================================================================== */
