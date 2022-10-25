@@ -103,4 +103,65 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // Pop-up (Modal)
+
+    const modalTrigger = document.querySelectorAll('[data-modal]')
+    const modal = document.querySelector('.modal')
+    const modalCloseBtn = document.querySelector('[data-close]')
+
+
+    function openModal() {
+        modal.classList.toggle('show')
+        document.body.style.overflow = 'hidden'
+        clearInterval(modalTimerId)
+    }
+
+    function closeModal() {
+        modal.classList.toggle('show')
+        document.body.style.overflow = ''
+    }
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', openModal)
+    })
+    
+    modalCloseBtn.addEventListener('click', closeModal)
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal()
+        }
+    })
+
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'Escape' && modal.classList.contains('show')) { // проверка на нажатие кнопки Escape на клавиатуре && модальное окно открыто
+            closeModal()
+        }
+    })
+
+
+    const modalTimerId = setTimeout(openModal, 5000)
+
+    function showModalByScroll() {
+        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 1) { // пользователь долистал до конца страницы
+            openModal()
+            window.removeEventListener('scroll', showModalByScroll)
+        }
+    }
+
+window.addEventListener('scroll', showModalByScroll)
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
 })
