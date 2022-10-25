@@ -118,7 +118,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function closeModal() {
         modal.classList.toggle('show')
-        document.body.style.overflow = ''
+        document.body.style.overflow = 'overlay'
     }
 
     modalTrigger.forEach(btn => {
