@@ -634,3 +634,172 @@ let end = new Date()
 console.log(`Цикл отработал за ${end - start} милисекунд`)
 
 //* ==================================================================================== */
+
+
+//* =================================== Classes & Constructors & this ===================================== */
+
+// classes
+function User(name, id) {
+    this.name = name
+    this.id = id
+    this.human = true
+
+    this.hello = function() {
+        console.log(`Hello ${this.name}`)
+    }
+}
+
+class User { // тоже самое на классах
+    constructor(name, id) {
+        this.name = name;
+        this.id = id;
+        this.human = true
+    }
+
+    hello() {
+        console.log(`Hello ${this.name}`)
+    }
+}
+
+User.prototype.join = function() {
+    console.log(`User ${this.name} is here`)
+}
+
+const ivan = new User('Ivan', 28)
+const anton = new User('Anton', 22)
+
+console.log(ivan)
+console.log(anton)
+
+ivan.hello()
+anton.hello()
+
+ivan.join()
+anton.join()
+
+
+class Rectangle {
+    constructor(height, width) { // в конструктор аргументы приходят из вне
+        this.height = height
+        this.width = width
+    }
+
+    calcArea() {
+        return this.height * this.width
+    }
+}
+
+class ColoredRectangleWithText extends Rectangle{
+    constructor(height, width, text, bgColor) {
+        super(height, width) // super для того, чтобы не копировать this.height = height и this.width = width еще раз из родительского класса Rectangle
+
+        this.text = text
+        this.bgColor = bgColor
+    }
+
+    showMyProps() {
+        console.log(`Текст: ${this.text}, Цвет: ${this.bgColor}`)
+    }
+}
+
+const div = new ColoredRectangleWithText(25, 10, 'Hello', 'red')
+div.showMyProps() 
+console.log(div.calcArea()) // метод calcArea тоже есть у div
+
+const square = new Rectangle(10, 10)
+console.log(square.calcArea()) // 100
+
+const long = new Rectangle(20, 100)
+console.log(long.calcArea()) // 2000
+
+// this
+
+/* 
+    1) Если мы используем метод внутри объекта, то контекст вызова this будет ссылаться на сам объект (т.е. контекст = сам объект)
+    2) this в конструкторах и классах - это новый экземпляр объекта
+    3) Ручная привязка this: call, apply, bind
+*/
+
+function showThis() {
+    console.log(this)
+}
+
+showThis() // Window, если нет строго режима || undefined, если есть 'use strict'
+
+function showThis2(a, b) {
+    console.log('Контекст вызова функции showThis2: ' + this) // Window, если нет строго режима || undefined, если есть 'use strict'
+    function sum() {
+        console.log('Контекст вызова функции sum: ' + this) // Window, если нет строго режима || undefined, если есть 'use strict'
+        return a + b
+    }
+    console.log(sum())
+}
+showThis2(5, 1)
+
+const myObject = {
+    a: 20,
+    b: 15,
+
+    sum : function() {
+        console.log(this) // выведет весь объект
+        function shout() {
+            console.log(this) // Window, если нет строго режима || undefined, если есть 'use strict'
+        }
+        shout()
+    }
+}
+myObject.sum()
+
+
+
+function sayName(surname) {
+    console.log(this) // {name" 'John'}
+    console.log(this.name) // John
+    console.log(this.name + surname) // JohnGrashin
+}
+
+const human = {
+    name: 'John'
+}  
+
+sayName.call(human, 'Grashin') // передаем контекст вызова 
+sayName.apply(human, ['Grashin']) 
+
+/* .call и .apply делают одно и тоже, но в apply аргументы пишутся в массиве */
+
+function count(num) {
+    return this * num
+}
+
+const double = count.bind(2) // double - новая функция с жестко привязанным контекстом
+
+console.log(double(3)) // 6
+
+
+const myObj = {
+    number: 5,
+
+    sayNumber: function name() {
+        const say = () => console.log(this) // { number: 5, sayNumber: [Function: name] } вернет объект, так как у стрелочной функции нет своего контекста
+        console.log(this.number) // 5
+        say()
+    }
+}
+
+myObj.sayNumber() 
+
+const btn = document.querySelector('button')
+
+btn.addEventListener('click', function() {
+    console.log(this) // <button></button>, (то есть сам элемент, на котором произошло событие, так как функция не стрелочная)
+    this.style.backgroundColor = 'red' // цвет кнопки поменяется на красный
+})
+
+btn.addEventListener('click', () => {
+    this.style.backgroundColor = 'red' // undefined и цвет не поменяется, так как у стрелочной функции нет контекста
+})
+
+
+const newDouble = a =>  a * 2 // const newDouble = (a) => { return a * 2 } - длинная запись
+
+//* =========================================================================================== */
