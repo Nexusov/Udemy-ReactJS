@@ -803,3 +803,26 @@ btn.addEventListener('click', () => {
 const newDouble = a =>  a * 2 // const newDouble = (a) => { return a * 2 } - длинная запись
 
 //* =========================================================================================== */
+
+
+
+//* ===================================== Rest ================================================ */
+
+/* 
+    1) rest записывается всегда последним в параметрах
+*/
+
+const log = function(a, b, ...rest) { 
+    console.log(a, b, rest)
+}
+
+log('aa', 'bb', 'rest1', 'rest2') // aa bb [ 'rest1', 'rest2' ]
+
+
+function calcOrDuoble(number, basis = 2) { // basis по умолчанию имеет значение 2
+    console.log(number * basis)
+}
+calcOrDuoble(3, 5) // 15
+calcOrDuoble(3) // 6
+
+//* =========================================================================================== */
