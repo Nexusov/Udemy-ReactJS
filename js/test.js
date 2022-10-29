@@ -826,3 +826,37 @@ calcOrDuoble(3, 5) // 15
 calcOrDuoble(3) // 6
 
 //* =========================================================================================== */
+
+
+//* ===================================== JSON ================================================ */
+
+/* 
+    1) в JSON все ключи и значения пишутся обязятаельно в ДВОЙНЫХ КАВЫЧКАХ! 
+*/
+
+const person = {
+    name : 'Alex',
+    tel : '+79999999999'
+}
+
+let objToJSON = JSON.stringify(person) // конвертируем js-объект в json 
+console.log(objToJSON) // {"name":"Alex","tel":"+79999999999"}
+
+let JSONtoObj = JSON.parse(objToJSON) // конвертируем JSON в js-объект
+console.log(JSONtoObj) // { name: 'Alex', tel: '+79999999999' }
+
+const deepPerson = {
+    name : 'Alex',
+    tel : '+79999999999',
+    parents: {
+        mom: 'Olga',
+        dad: 'Ivan'
+    }
+}
+
+const clone = JSON.parse(JSON.stringify(deepPerson)) // глубокое копирование объекта с помощью JSON
+
+clone.parents.mom = 'Kate'
+
+console.log(deepPerson) // {name: 'Alex',tel: '+79999999999',parents: { mom: 'Olga', dad: 'Ivan' }} mom не поменялся
+console.log(clone) // {name: 'Alex',tel: '+79999999999',parents: { mom: 'Kate', dad: 'Ivan' }}  mom поменялся
