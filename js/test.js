@@ -860,3 +860,95 @@ clone.parents.mom = 'Kate'
 
 console.log(deepPerson) // {name: 'Alex',tel: '+79999999999',parents: { mom: 'Olga', dad: 'Ivan' }} mom не поменялся
 console.log(clone) // {name: 'Alex',tel: '+79999999999',parents: { mom: 'Kate', dad: 'Ivan' }}  mom поменялся
+
+//* =========================================================================================== */
+
+
+
+//* ===================================== Promise ================================================ */
+
+// resolve
+
+console.log('Запрос данных')
+
+const req = new Promise((resolve, reject) => {
+	setTimeout(() => {
+		console.log('Подготовка данных...');
+
+		const product = {
+			name: 'TV',
+			prcie: 2000,
+		};
+
+        resolve(product)
+	}, 2000);
+});
+
+req.then((product) => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			product.status = 'order';
+			resolve(product);
+		}, 2000);
+	});
+}).then((data) => {
+    data.modify = true
+    return data
+}).then((data) => {
+    console.log(data);
+}).finally(() => {
+    console.log('Finilly')
+})
+
+
+// reject
+const reqJ = new Promise((resolve, reject) => {
+	setTimeout(() => {
+		console.log('Подготовка данных...');
+
+		const product = {
+			name: 'TV',
+			prcie: 2000,
+		};
+        reject(product)
+	}, 2000);
+});
+
+reqJ.then((product) => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			product.status = 'order';
+			reject(product);
+		}, 2000);
+	});
+}).then((data) => {
+    data.modify = true
+    return data
+}).then((data) => {
+    console.log(data);
+}).catch(() => {
+    console.error('Произошла ошибка!')
+})
+
+
+const test = time => {
+    return new Promise(resolve => {
+        setTimeout(() => resolve(), time);
+    })
+}
+test(1000).then(() => console.log('1000 ms'))
+test(2000).then(() => console.log('2000 ms'))
+
+
+
+Promise.all([test(1000), test(2000)]).then(() => { // выведет All, если все промисы в массиве сработали
+    console.log('All')
+})
+
+Promise.race([test(1000), test(2000)]).then(() => { // выведет All, если любой промис сработает
+    console.log('All')
+})
+
+
+//* ============================================================================================== */
+
