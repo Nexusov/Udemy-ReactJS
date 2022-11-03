@@ -969,3 +969,57 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
 
 //* ========================================================================================================= */
 
+
+
+
+//* ======================================== Iteration over array (extra) ====================================================== */
+
+// filter
+
+const myNames = ['Ivan', 'Ann', 'Ksenia', 'Voldemart']
+
+const shortNames = myNames.filter((name) => {
+    return name.length < 5
+})
+console.log(shortNames) // [ 'Ivan', 'Ann' ]
+
+
+// map
+
+const answers = ['IvAn', 'AnNA', 'Hello']
+
+const mapAnswers = answers.map((item) => {
+    return item.toLowerCase()
+}) 
+console.log(mapAnswers) // [ 'ivan', 'anna', 'hello' ]
+
+
+// some
+
+const something = [4, 'qdas', 'fsdfsd']
+
+console.log(something.some(item => { // true (возвращает true, если хоть один элемент попадает под условие)
+    return typeof(item) === 'number'
+}))
+
+
+// every
+
+const something2 = [4, 'qdas', 'fsdfsd']
+
+console.log(something2.every(item => { // false (возвращает true, если все элементы попадают под условие)
+    return typeof(item) === 'number'
+}))
+
+
+// reduce 
+
+const myArr = [4, 5, 1, 3, 2, 6]
+
+const res = myArr.reduce((sum , current) => sum + current)
+console.log(res) // 21 (сумма всех элементов массива)
+
+
+
+//* ============================================================================================================================ */
+
