@@ -972,7 +972,7 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
 
 
 
-//* ======================================== Iteration over array (extra) ====================================================== */
+//* ======================================== Array Iteration (extra) ====================================================== */
 
 // filter
 
@@ -1018,6 +1018,35 @@ const myArr = [4, 5, 1, 3, 2, 6]
 
 const res = myArr.reduce((sum , current) => sum + current)
 console.log(res) // 21 (сумма всех элементов массива)
+
+
+
+const fruits = ['apple', 'pear', 'orange']
+
+// const fruitsRes = fruits.reduce((sum , current) => sum + ', ' + current)
+const fruitsRes = fruits.reduce((sum , current) => `${sum}, ${current}`)
+console.log(fruitsRes) // apple, pear, orange
+
+const fruitsRes2 = fruits.reduce((sum , current) => `${sum}, ${current}`, 'Default') // 2й аргумент задает начальное значение
+console.log(fruitsRes2) // Default, apple, pear, orange
+
+
+
+const testObj = {
+    ivan: 'person',
+    ann: 'person',
+    dog: 'animal',
+    cat: 'animal'
+}
+
+const newArray = Object.entries(testObj)
+    .filter(item => {
+        return item[1] === 'person'
+    })
+    .map(item => {
+        return item[0]
+    })
+console.log(newArray) // [ 'ivan', 'ann' ] (отфильтровали person от animal)
 
 
 
