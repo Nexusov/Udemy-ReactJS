@@ -205,12 +205,19 @@ window.addEventListener('DOMContentLoaded', () => {
         return await res.json()
     }
 
-    getResources('http://localhost:3000/menu')
+    axios.get('http://localhost:3000/menu')
+        .then(data => {
+            data.data.forEach(({img, altimg, title, descr, price}) => {
+                new MenuCard(img, altimg, title, descr, price, '.menu .container').render()
+            })
+        })
+
+    /* getResources('http://localhost:3000/menu')
         .then(data => {
             data.forEach(({img, altimg, title, descr, price}) => {
                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render()
             })
-        }) 
+        })  */
 
     // Способ создания карточек без шаблонизации
 
