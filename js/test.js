@@ -1052,3 +1052,28 @@ console.log(newArray) // [ 'ivan', 'ann' ] (отфильтровали person о
 
 //* ============================================================================================================================ */
 
+
+//* ===================================================  LocalStorage ========================================================================= */
+
+localStorage.setItem('number', 5) 
+
+localStorage.getItem('number')
+console.log(localStorage.getItem('number')) // 5
+
+localStorage.removeItem('number')
+
+localStorage.clear()
+
+
+const localPerson = {
+    name: 'Alex',
+    age: 25
+}
+
+const serializedPerson = JSON.stringify(localPerson)
+localStorage.setItem('alex', serializedPerson)
+
+console.log(JSON.parse(localStorage.getItem('alex'))) // {name: 'Alex', age: 25}
+
+//* =========================================================================================================================================== */
+
