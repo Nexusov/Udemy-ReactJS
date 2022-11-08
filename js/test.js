@@ -1077,3 +1077,84 @@ console.log(JSON.parse(localStorage.getItem('alex'))) // {name: 'Alex', age: 25}
 
 //* =========================================================================================================================================== */
 
+
+
+//* ========================================================= RegExp ================================================================================== */
+
+/* 
+    search() всегда ищет только первое совпадение    
+    test() вернет true, если найдет хоть одно совпаденеи
+
+    . - все элементы, которые попадут в строку
+
+    Флаги:
+    1) i - внезависимости от регистра
+    2) g - поиск сразу нескольких вхождений
+    3) m - многострочный режим
+
+    Классы: 
+    1) \d - цифры
+    2) \w - буквы
+    3) \s - пробелы
+
+    4) \D - не числа
+    5) \W - не буквы
+*/
+
+new RegExp('pattern', 'flags')
+/pattern/f // короткая запись
+
+
+const testName = 'Ann'
+const testName1 = 'ANN'
+const testName2 = 'Olga'
+
+const reg = /n/ 
+
+console.log(testName.search(reg)) // 1
+console.log(testName2.search(reg)) // -1
+
+const regI = /n/i
+const regIG = /n/ig
+
+console.log(testName1.search(regI)) // 1
+
+console.log(testName1.match(regIG)) // [ 'N', 'N' ]
+
+
+// replace()
+
+const pass = 'Password'
+const passDot = 'P.a.s.s.w.o.r.d'
+
+console.log(pass.replace(/./g, "*")) // ********
+console.log(passDot.replace(/\./g, "*")) // P*a*s*s*w*o*r*d
+
+
+console.log('12-34-56'.replace(/-/g, ':')) // 12:34:56
+
+
+// test()
+
+const regTest = /n/ig
+const nameTest = 'Anton'
+const nameTest2 = 'Yegor'
+
+console.log(regTest.test(nameTest)) // true
+console.log(regTest.test(nameTest2)) // false
+
+
+// match()
+
+const regNumbers = /\d/ig
+const numbersReg = '1dfdf434232dghLKLklg'
+
+console.log(numbersReg.match(regNumbers)) // ['1', '4', '3', '4', '2', '3', '2']
+
+
+const strr = 'My name is R2D2'
+
+console.log(strr.match(/\w\d\w\d/i)) // [ 'R2D2', index: 11, input: 'My name is R2D2', groups: undefined ]
+
+//* =================================================================================================================================================== */
+
