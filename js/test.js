@@ -1181,3 +1181,71 @@ console.log(man.userAge = 30) // 30
 
 //* ================================================================================================================================= */
 
+
+
+//* ================================================= Encapsulation ================================================================= */
+
+function Man(name, age) {
+    this.name = name
+    let userAge = age
+
+    this.say = function() {
+        console.log(`Имя пользователя ${this.name}, возраст ${userAge}`)
+    }
+
+    this.getAge = function() {
+        return userAge
+    }
+
+    this.setAge = function(age) {
+        if (typeof age === 'number' && age > 0 && age < 110) {
+            userAge = age
+        } else {
+            console.log('Недопустимое значение!')
+        }
+    }
+}
+
+const oleg = new Man('Oleg', 27)
+console.log(oleg.name) // Oleg
+console.log(oleg.getAge()) // 27
+
+oleg.setAge(30) 
+oleg.setAge(300) // Недопустимое значение!
+console.log(oleg.getAge()) // 30
+
+oleg.say() // Имя пользователя Oleg, возраст 30
+
+
+// инкапсуляция на классах
+class Woman {
+    constructor(name, age) {
+        this.name = name
+        this._age = age
+    }
+    
+    #surname = 'Smirnova'
+
+    say = () => {
+        console.log(`Имя пользователя ${this.name}${this.#surname}, возраст ${this._age}`)
+    }
+
+    get age() {
+        return this._age
+    }
+
+    set age(age) {
+        if (typeof age === 'number' && age > 0 && age < 110) {
+            this._age = age
+        } else {
+            console.log('Недопустимое значение!')
+        }
+    }
+}
+
+const katya = new Woman('Katya', 27)
+console.log(katya.surname) // undefined
+katya.say() // Имя пользователя KatyaSmirnova, возраст 27
+
+//* ================================================================================================================================= */
+
