@@ -4,10 +4,10 @@ let path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: 'E:/My Projects/udemy/Udemy-ReactJS/webpack/src/js/script.js',
+  entry: './Food_dist/js/script.js',
   output: {
     filename: 'bundle.js',
-    path: /* __dirname + */ 'E:/My Projects/udemy/Udemy-ReactJS/webpack/'
+    path: __dirname + '/Food_dist/js'
   },
   watch: true,
 
