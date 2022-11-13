@@ -1,25 +1,32 @@
-function modal() {
+function openModal(modalSelector, modalTimerId) {
+	const modal = document.querySelector(modalSelector);
+
+	modal.classList.add('show');
+	modal.classList.remove('hide');
+	document.body.style.overflow = 'hidden';
+
+	if (modalTimerId) {
+		clearInterval(modalTimerId);
+	}
+}
+
+function closeModal(modalSelector) {
+	const modal = document.querySelector(modalSelector);
+
+	modal.classList.add('hide');
+	modal.classList.remove('show');
+	document.body.style.overflow = 'overlay';
+}
+
+function modal(triggerSelector, modalSelector, modalTimerId) {
     
 	// Pop-up (Modal)
 
-	const modalTrigger = document.querySelectorAll('[data-modal]');
-	const modal = document.querySelector('.modal');
-
-	function openModal() {
-		modal.classList.add('show');
-		modal.classList.remove('hide');
-		document.body.style.overflow = 'hidden';
-		clearInterval(modalTimerId);
-	}
-
-	function closeModal() {
-		modal.classList.add('hide');
-		modal.classList.remove('show');
-		document.body.style.overflow = 'overlay';
-	}
+	const modalTrigger = document.querySelectorAll(triggerSelector);
+	const modal = document.querySelector(modalSelector);
 
 	modalTrigger.forEach((btn) => {
-		btn.addEventListener('click', openModal);
+		btn.addEventListener('click', () => openModal(modalSelector, modalTimerId));
 	});
 
 	modal.addEventListener('click', (event) => {
@@ -27,18 +34,16 @@ function modal() {
 			event.target === modal ||
 			event.target.getAttribute('data-close') == ''
 		) {
-			closeModal();
+			closeModal(modalSelector);
 		}
 	});
 
 	document.addEventListener('keydown', (event) => {
 		if (event.code === 'Escape' && modal.classList.contains('show')) {
 			// проверка на нажатие кнопки Escape на клавиатуре && модальное окно открыто
-			closeModal();
+			closeModal(modalSelector);
 		}
 	});
-
-	const modalTimerId = setTimeout(openModal, 50000);
 
 	function showModalByScroll() {
 		if (
@@ -46,7 +51,7 @@ function modal() {
 			document.documentElement.scrollHeight - 1
 		) {
 			// пользователь долистал до конца страницы
-			openModal();
+			openModal(modalSelector, modalTimerId);
 			window.removeEventListener('scroll', showModalByScroll);
 		}
 	}
@@ -54,4 +59,6 @@ function modal() {
 	window.addEventListener('scroll', showModalByScroll);
 }
 
-module.exports = modal;
+export default modal;
+export {closeModal}
+export {openModal}
