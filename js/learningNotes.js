@@ -1249,3 +1249,24 @@ katya.say() // Имя пользователя KatyaSmirnova, возраст 27
 
 //* ================================================================================================================================= */
 
+
+//* ========================================================== Error Handling ======================================================================= */
+
+try {
+    console.log('Normal')
+    console.log(vardoesntExist)
+    console.log('result')
+} catch (error) {
+    console.log(error) // ReferenceError: vardoesntExist is not defined
+    console.log(error.name) // ReferenceError
+    console.log(error.message) // vardoesntExist is not defined
+    console.log(error.stack) // ReferenceError: vardoesntExist is not defined
+} finally {
+    console.log('it works anyway')
+}
+
+
+console.log('Still okay')
+
+//* ================================================================================================================================================= */
+
