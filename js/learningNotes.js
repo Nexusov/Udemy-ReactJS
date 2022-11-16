@@ -1270,3 +1270,48 @@ console.log('Still okay')
 
 //* ================================================================================================================================================= */
 
+
+//* =========================================================== Generator Function ================================================================== */
+
+function* generator() {
+    yield 'S';
+    yield 'c';
+    yield 'r';
+    yield 'i';
+    yield 'p';
+    yield 't';
+}
+
+const genStr = generator()
+
+console.log(genStr.next()) // { value: 'S', done: false }
+console.log(genStr.next()) // { value: 'c', done: false }
+console.log(genStr.next()) // { value: 'r', done: false }
+console.log(genStr.next()) // { value: 'i', done: false }
+console.log(genStr.next()) // { value: 'p', done: false }
+console.log(genStr.next()) // { value: 't', done: false }
+console.log(genStr.next()) // { value: undefined, done: true }
+
+console.log(genStr.next().value) // получаем только значение value, без done
+
+
+
+function* count(number) {
+    for (let i = 0; i < number; i++) {
+        yield i
+    }
+}
+
+const genCounter = count(7)
+
+console.log(genCounter.next().value) // 0
+console.log(genCounter.next().value) // 1 
+console.log(genCounter.next().value) // 2 
+
+
+for (let k of count(7)) {
+    console.log(k) // 0 1 2 3 4 5 6 
+}
+
+//* ================================================================================================================================================= */
+
