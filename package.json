@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
-    "jquery": "^3.6.1"
+    "jquery": "^3.6.1",
+    "tiny-slider": "^2.9.4"
   }
 }
