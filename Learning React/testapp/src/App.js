@@ -14,6 +14,7 @@ const Field = () => {
 	return <input placeholder={holder} type='text' style={styledField} />;
 };
 
+// eslint-disable-next-line no-unused-vars
 class FieldClass extends Component { // Class component syntax
    render() {
       const holder = 'Enter here'
