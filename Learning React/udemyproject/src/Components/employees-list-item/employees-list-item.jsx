@@ -1,32 +1,66 @@
-import './employees-list-item.css'
+import { Component } from 'react';
+import './employees-list-item.css';
 
-const EmployeesListItem = ({name, salary, increase}) => {
+class EmployeesListItem extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			increase: false,
+			rise: false
+		};
+	}
 
-   let classNames = "list-group-item d-flex justify-content-between"
-   if (increase) {
-      classNames += ' increase'
-   }
+	onIncrease = () => {
+		this.setState(({ increase }) => ({
+			increase: !increase,
+		}));
+	};
 
-	return (
-		<li className={classNames}>
-			<span className='list-group-item-label'>{name}</span>
-			<input
-				type='text'
-				className='list-group-item-input'
-				defaultValue={salary + '$'}
-			/>
-			<div className='d-flex justify-content-center align-items-center'>
-				<button type='button' className='btn-cookie btn-sm '>
-					<i className='fas fa-cookie'></i>
-				</button>
+	onRise = () => {
+		this.setState(({ rise }) => ({
+			rise: !rise
+		}));
+	};
 
-				<button type='button' className='btn-trash btn-sm '>
-					<i className='fas fa-trash'></i>
-				</button>
-				<i className='fas fa-star'></i>
-			</div>
-		</li>
-	);
-};
+	render() {
+		const { name, salary } = this.props;
+		const { increase, rise } = this.state;
 
-export default EmployeesListItem
+		let classNames = 'list-group-item d-flex justify-content-between';
+		
+		if (increase) {
+			classNames += ' increase';
+		}
+
+		if (rise) {
+			classNames += ' like';
+		}
+
+		return (
+			<li className={classNames}>
+				<span className='list-group-item-label' onClick={this.onRise}>{name}</span>
+				<input
+					type='text'
+					className='list-group-item-input'
+					defaultValue={salary + '$'}
+				/>
+				<div className='d-flex justify-content-center align-items-center'>
+					<button
+						type='button'
+						className='btn-cookie btn-sm '
+						onClick={this.onIncrease}
+					>
+						<i className='fas fa-cookie'></i>
+					</button>
+
+					<button type='button' className='btn-trash btn-sm '>
+						<i className='fas fa-trash'></i>
+					</button>
+					<i className='fas fa-star'></i>
+				</div>
+			</li>
+		);
+	}
+}
+
+export default EmployeesListItem;
