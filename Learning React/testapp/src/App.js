@@ -81,6 +81,12 @@ class WhoAmI extends Component {
       })
    }
 
+   static onLog = () => {
+      console.log('Hey')
+   }
+
+   static logged = 'on'
+
 	render() {
       const {name, surname, link} = this.props
       const {position, years} = this.state
@@ -116,6 +122,9 @@ function App() {
 		</Wrapper>
 	);
 }
+
+WhoAmI.onLog() 
+console.log(WhoAmI.logged)
 
 export {Header}
 export default App;
