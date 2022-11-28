@@ -61,10 +61,10 @@ class WhoAmI extends Component {
 		return (
 			<>
             <button onClick={this.nextYear}>{this.state.text}</button>
-				<h1>
+				<h1 style={{fontFamily: 'Roboto'}}> 
 					My name is {name}, surname - {surname}, age - {years}, position - {position}
 				</h1>
-				<a href={link}>My profile</a>
+				<a href={link} style={{fontSize: 20}}>My profile</a>
             <form>
                <span>Введите должность</span>
                <input type="text" onChange={this.commitInputChanges} />
