@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import styled from 'styled-components';
+import BootstrapTest from './BootstrapTest';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {Button} from './App'
 
@@ -18,6 +21,7 @@ root.render(
 	<React.StrictMode>
 		<App />
 		<BigButton as="a">UwU</BigButton>
+		<BootstrapTest />
 	</React.StrictMode>
 );
 
