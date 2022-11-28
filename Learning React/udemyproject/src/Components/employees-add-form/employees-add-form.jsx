@@ -3,30 +3,32 @@ import './employees-add-form.css';
 
 class EmployeesAddForm extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			name: '',
 			salary: '',
-		}
+		};
 	}
 
 	onValueChange = (e) => {
 		this.setState({
-			[e.target.name] : e.target.value
-		})
-	}
+			[e.target.name]: e.target.value,
+		});
+	};
 
 	onSubmit = (e) => {
-		e.preventDefault()
-		this.props.onAdd(this.state.name, this.state.salary)
-		this.setState({
-			name: '',
-			salary: ''
-		})
-	}
+		e.preventDefault();
+		if (this.state.name.length > 0 && this.state.salary.length > 0) {
+			this.props.onAdd(this.state.name, this.state.salary);
+			this.setState({
+				name: '',
+				salary: '',
+			});
+		}
+	};
 
 	render() {
-		const {name, salary} = this.state
+		const { name, salary } = this.state;
 
 		return (
 			<div className='app-add-form'>
