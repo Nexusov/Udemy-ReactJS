@@ -8,10 +8,6 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import './randomChar.scss';
 
 class RandomChar extends Component {
-   constructor(props) {
-      super(props);
-      this.updateCharacter()
-   }
 
 	state = {
       character: {},
@@ -20,6 +16,14 @@ class RandomChar extends Component {
 	};
 
    marvelService = new MarvelService()
+
+   componentDidMount() {
+      this.timerId = setInterval(() => this.updateCharacter(), 111000)
+   }
+
+   componentWillUnmount() {
+      clearInterval(this.timerId)
+   }
 
    onError = () => {
       this.setState({
