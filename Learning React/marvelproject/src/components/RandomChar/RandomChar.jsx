@@ -18,7 +18,8 @@ class RandomChar extends Component {
    marvelService = new MarvelService()
 
    componentDidMount() {
-      this.timerId = setInterval(() => this.updateCharacter(), 111000)
+      // this.timerId = setInterval(() => this.updateCharacter(), 111000)
+      this.updateCharacter()
    }
 
    componentWillUnmount() {
@@ -80,12 +81,18 @@ const View = ({ character }) => {
 
    const {name, description, thumbnail, homepage, wiki} = character
 
+   let imgStyle = {'objectFit': 'cover'}
+   if (thumbnail.includes('image_not_available')) {
+      imgStyle = {'objectFit': 'contain'}
+   }
+
 	return (
 		<div className='randomchar__block'>
 			<img
 				src={thumbnail}
 				alt='Random character'
 				className='randomchar__img'
+            style={imgStyle}
 			/>
 			<div className='randomchar__info'>
 				<p className='randomchar__name'>{name}</p>
