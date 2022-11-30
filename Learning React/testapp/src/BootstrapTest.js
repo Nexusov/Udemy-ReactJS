@@ -1,15 +1,18 @@
 import { Container, Row, Col, Carousel, Form, Button } from 'react-bootstrap';
 
-const BootstrapTest = () => {
+const BootstrapTest = (props) => {
 	return (
 		<Container className="mt-5 mb-5">
 			<Row>
-				<Col>1 of 2</Col>
-				<CaruselExample />
+				<Col>
+					{props.left}
+				</Col>
             <Col>
-               <FormExample />
+					{props.right}
             </Col>
 			</Row>
+			<CaruselExample />
+			<FormExample />
 		</Container>
 	);
 };
