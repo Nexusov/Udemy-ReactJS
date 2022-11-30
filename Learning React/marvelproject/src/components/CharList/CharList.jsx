@@ -32,7 +32,7 @@ class CharList extends Component {
    componentDidMount() {
       this.marvelService.getAllCharacters().then(this.onCharListLoaded).catch(this.onError)
    }
-    id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
+   
 	renderItems(arr) {
 		const items = arr.map(item => {
 			let imgStyle = { 'objectFit' : 'cover' };
