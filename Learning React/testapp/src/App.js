@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
+import React, { Component, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 
@@ -64,34 +64,38 @@ function Btn() {
 }
 
 class Form extends Component {
-   state = {
-      advOpen: false
-   }
+	state = {
+		advOpen: false,
+	};
 
-   handleClick = () => {
-      this.setState(({advOpen}) => ({
-         advOpen: !advOpen
-      }))
-   }
-   
-   myRef = React.createRef()
-   myRefConsole = React.createRef()
+	handleClick = () => {
+		this.setState(({ advOpen }) => ({
+			advOpen: !advOpen,
+		}));
+	};
 
-   componentDidMount() {
-      this.myRef.current.focus()
-      this.myRefConsole.current.doSmth()
+	myRef = React.createRef();
+	myRefConsole = React.createRef();
 
-      setTimeout(this.handleClick, 3000)
-   }
+	componentDidMount() {
+		this.myRef.current.focus();
+		this.myRefConsole.current.doSmth();
 
-   focusFirstTI = () => {
-      this.myRef.current.focus()
-   }
+		setTimeout(this.handleClick, 3000);
+	}
 
-   render() {
+	focusFirstTI = () => {
+		this.myRef.current.focus();
+	};
+
+	render() {
 		return (
 			<Container>
-				<form className='w-50 border mt-5 p-3 m-auto' style={{'overflow' : 'hidden', 'position' : 'relative'}} onClick={this.handleClick}>
+				<form
+					className='w-50 border mt-5 p-3 m-auto'
+					style={{ overflow: 'hidden', position: 'relative' }}
+					onClick={this.handleClick}
+				>
 					<div className='mb-3'>
 						<label
 							htmlFor='exampleFormControlInput1'
@@ -100,13 +104,13 @@ class Form extends Component {
 							Email address
 						</label>
 						<input
-                     ref = {this.myRef}
+							ref={this.myRef}
 							type='email'
 							className='form-control'
 							id='exampleFormControlInput1'
 							placeholder='name@example.com'
 						/>
-                  <TextInput ref={this.myRefConsole}/>
+						<TextInput ref={this.myRefConsole} />
 					</div>
 					<div className='mb-3'>
 						<label
@@ -116,18 +120,17 @@ class Form extends Component {
 							Example textarea
 						</label>
 						<textarea
-                     onClick={this.focusFirstTI} 
+							onClick={this.focusFirstTI}
 							className='form-control'
 							id='exampleFormControlTextarea1'
 							rows='3'
 						></textarea>
 					</div>
-               {
-                  this.state.advOpen ?                
-                  <Portal>
-                     <Msg />
-                  </Portal> : null
-               }
+					{this.state.advOpen ? (
+						<Portal>
+							<Msg />
+						</Portal>
+					) : null}
 				</form>
 			</Container>
 		);
@@ -135,46 +138,97 @@ class Form extends Component {
 }
 
 const Portal = (props) => {
-   const node = document.createElement('div')
-   document.body.appendChild(node)
+	const node = document.createElement('div');
+	document.body.appendChild(node);
 
-   return ReactDOM.createPortal(props.children, node);
-}
+	return ReactDOM.createPortal(props.children, node);
+};
 
 const Msg = () => {
-   return (
-      <div 
-         style={{
-            'width': '500px', 
-            'height': '150px', 
-            'backgroundColor': 'red', 
-            'position': 'absolute', 
-            'right': '0', 
-            'bottom': '0'}}
-         >  
-      Hello
-   </div>
-   )
-}
+	return (
+		<div
+			style={{
+				width: '500px',
+				height: '150px',
+				backgroundColor: 'red',
+				position: 'absolute',
+				right: '0',
+				bottom: '0',
+			}}
+		>
+			Hello
+		</div>
+	);
+};
 
 class TextInput extends Component {
-
-   doSmth = () => {
-      console.log('smth')
-   }
-   render() {
-      return (   
-         <input 
-         type="email"
-         className='form-control'
-         id="exampleFormControllInput1"
-         placeholder="name@example.com"
-         />
-      )
-   }
+	doSmth = () => {
+		console.log('smth');
+	};
+	render() {
+		return (
+			<input
+				type='email'
+				className='form-control'
+				id='exampleFormControllInput1'
+				placeholder='name@example.com'
+			/>
+		);
+	}
 }
 
+const calcValue = () => {
+   console.log('random')
 
+   return Math.random() * (50 - 1) + 1
+}
+
+const Slider = (props) => {
+
+   const [slide, setSlide] = useState(calcValue)
+   const [autoplay, setAutoplay] = useState(false)
+   // const [state, setState] = useState({slide: 0, autoplay: false})
+
+   function changeSlide(i) {
+      setSlide(slide => slide + i)
+   }
+
+   function toggleAutoplay() {
+      setAutoplay(autoplay => !autoplay)
+   }
+
+/* function changeSlide(i) {
+      setState(state => ({...state, slide: state.slide + i}))
+   }
+
+   function toggleAutoplay() {
+      setState(state => ({...state, autoplay: !state.autoplay}))
+   } */
+
+		return (
+			<Container>
+				<div className='slider w-50 m-auto'>
+					<img
+						className='d-block w-100'
+						src='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg'
+						alt='slide'
+					/>
+					<div className='text-center mt-5'> Active slide {slide} <br /> {autoplay ? 'auto' : null} </div>
+					<div className='buttons mt-3'>
+						<button
+							className='btn btn-primary me-2'
+							onClick={() => changeSlide(-1)}>-1</button>
+						<button
+							className='btn btn-primary me-2'
+							onClick={() => changeSlide(1)}>+1</button>
+						<button
+							className='btn btn-primary me-2'
+							onClick={toggleAutoplay}>toggle autoplay</button>
+					</div>
+				</div>
+			</Container>
+		);
+}
 
 class WhoAmI extends Component {
 	constructor(props) {
@@ -286,7 +340,8 @@ class Counter extends Component {
 function App() {
 	return (
 		<Wrapper>
-         <Form />
+         <Slider />
+			<Form />
 			<Counter render={(counter) => <Message counter={counter} />} />
 			<Header />
 			<Field />
