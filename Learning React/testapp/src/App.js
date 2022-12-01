@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -189,6 +189,24 @@ const Slider = (props) => {
    const [autoplay, setAutoplay] = useState(false)
    // const [state, setState] = useState({slide: 0, autoplay: false})
 
+   function logging() {
+      console.log('log')
+   }
+
+   useEffect(() => {
+      console.log('Effect')
+   }, []) // will work once when the component be loaded
+
+   useEffect(() => {
+      console.log('Effect update')
+      document.title = `Slide: ${slide}`
+
+      window.addEventListener('click', logging)
+      return () => {
+         window.removeEventListener('click', logging) // similar to compnentDidUnmount 
+      }
+   }, [slide])
+
    function changeSlide(i) {
       setSlide(slide => slide + i)
    }
@@ -338,9 +356,13 @@ class Counter extends Component {
 }
 
 function App() {
+
+   const [slider, setSlider] = useState(true)
+
 	return (
 		<Wrapper>
-         <Slider />
+         <button onClick={() => setSlider(false)}>Click</button>
+         {slider ? <Slider /> : null}
 			<Form />
 			<Counter render={(counter) => <Message counter={counter} />} />
 			<Header />
