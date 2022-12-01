@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -189,6 +189,14 @@ const Slider = (props) => {
    const [autoplay, setAutoplay] = useState(false)
    // const [state, setState] = useState({slide: 0, autoplay: false})
 
+   const getSomeImages = useCallback(() => {
+      console.log('fetching')
+      return [
+         'https://images.unsplash.com/photo-1471879832106-c7ab9e0cee23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
+         'https://petapixel.com/assets/uploads/2022/07/DALLEcopy-800x420.jpg'
+      ]
+   }, [slide])
+
    function logging() {
       console.log('log')
    }
@@ -226,11 +234,7 @@ const Slider = (props) => {
 		return (
 			<Container>
 				<div className='slider w-50 m-auto'>
-					<img
-						className='d-block w-100'
-						src='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg'
-						alt='slide'
-					/>
+               <Slide getSomeImages={getSomeImages} />
 					<div className='text-center mt-5'> Active slide {slide} <br /> {autoplay ? 'auto' : null} </div>
 					<div className='buttons mt-3'>
 						<button
@@ -246,6 +250,22 @@ const Slider = (props) => {
 				</div>
 			</Container>
 		);
+}
+
+const Slide = ({getSomeImages}) => {
+   const [images, setImages] = useState([])
+
+   useEffect(() => {
+      setImages(getSomeImages())
+   }, [getSomeImages])
+
+   return (
+      <>
+         {
+            images.map((url, i) => <img key={i} className='d-block w-100' src={url} alt='slide' />)
+         }
+      </>
+   )
 }
 
 class WhoAmI extends Component {
