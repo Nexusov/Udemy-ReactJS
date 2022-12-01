@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 
@@ -63,12 +64,24 @@ function Btn() {
 }
 
 class Form extends Component {
+   state = {
+      advOpen: false
+   }
+
+   handleClick = () => {
+      this.setState(({advOpen}) => ({
+         advOpen: !advOpen
+      }))
+   }
+   
    myRef = React.createRef()
    myRefConsole = React.createRef()
 
    componentDidMount() {
       this.myRef.current.focus()
       this.myRefConsole.current.doSmth()
+
+      setTimeout(this.handleClick, 3000)
    }
 
    focusFirstTI = () => {
@@ -78,7 +91,7 @@ class Form extends Component {
    render() {
 		return (
 			<Container>
-				<form className='w-50 border mt-5 p-3 m-auto'>
+				<form className='w-50 border mt-5 p-3 m-auto' style={{'overflow' : 'hidden', 'position' : 'relative'}} onClick={this.handleClick}>
 					<div className='mb-3'>
 						<label
 							htmlFor='exampleFormControlInput1'
@@ -109,13 +122,40 @@ class Form extends Component {
 							rows='3'
 						></textarea>
 					</div>
+               {
+                  this.state.advOpen ?                
+                  <Portal>
+                     <Msg />
+                  </Portal> : null
+               }
 				</form>
 			</Container>
 		);
 	}
 }
 
+const Portal = (props) => {
+   const node = document.createElement('div')
+   document.body.appendChild(node)
 
+   return ReactDOM.createPortal(props.children, node);
+}
+
+const Msg = () => {
+   return (
+      <div 
+         style={{
+            'width': '500px', 
+            'height': '150px', 
+            'backgroundColor': 'red', 
+            'position': 'absolute', 
+            'right': '0', 
+            'bottom': '0'}}
+         >  
+      Hello
+   </div>
+   )
+}
 
 class TextInput extends Component {
 
