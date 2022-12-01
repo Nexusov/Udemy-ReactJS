@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 
 import './App.css';
@@ -60,6 +61,80 @@ function Btn() {
 
 	return <button>{isLogged ? 'Enter' : text}</button>;
 }
+
+class Form extends Component {
+   myRef = React.createRef()
+   myRefConsole = React.createRef()
+
+   componentDidMount() {
+      this.myRef.current.focus()
+      this.myRefConsole.current.doSmth()
+   }
+
+   focusFirstTI = () => {
+      this.myRef.current.focus()
+   }
+
+   render() {
+		return (
+			<Container>
+				<form className='w-50 border mt-5 p-3 m-auto'>
+					<div className='mb-3'>
+						<label
+							htmlFor='exampleFormControlInput1'
+							className='form-label'
+						>
+							Email address
+						</label>
+						<input
+                     ref = {this.myRef}
+							type='email'
+							className='form-control'
+							id='exampleFormControlInput1'
+							placeholder='name@example.com'
+						/>
+                  <TextInput ref={this.myRefConsole}/>
+					</div>
+					<div className='mb-3'>
+						<label
+							htmlFor='exampleFormControlTextarea1'
+							className='form-label'
+						>
+							Example textarea
+						</label>
+						<textarea
+                     onClick={this.focusFirstTI} 
+							className='form-control'
+							id='exampleFormControlTextarea1'
+							rows='3'
+						></textarea>
+					</div>
+				</form>
+			</Container>
+		);
+	}
+}
+
+
+
+class TextInput extends Component {
+
+   doSmth = () => {
+      console.log('smth')
+   }
+   render() {
+      return (   
+         <input 
+         type="email"
+         className='form-control'
+         id="exampleFormControllInput1"
+         placeholder="name@example.com"
+         />
+      )
+   }
+}
+
+
 
 class WhoAmI extends Component {
 	constructor(props) {
@@ -129,22 +204,18 @@ const DynamicGreating = (props) => {
 };
 
 const HelloGreating = () => {
-   return (
-      <div style={{'width' : '600px', 'margin' : '0 auto'}}>
-         <DynamicGreating color={'primary'}>
-            <h2>KILL ME</h2>
-         </DynamicGreating>
-      </div>
-   )
-}
+	return (
+		<div style={{ width: '600px', margin: '0 auto' }}>
+			<DynamicGreating color={'primary'}>
+				<h2>KILL ME</h2>
+			</DynamicGreating>
+		</div>
+	);
+};
 
 const Message = (props) => {
-   return (
-      <h2>
-         The counter is {props.counter}
-      </h2>
-   )
-}
+	return <h2>The counter is {props.counter}</h2>;
+};
 
 class Counter extends Component {
 	state = {
@@ -166,7 +237,7 @@ class Counter extends Component {
 				>
 					Click me!
 				</button>
-            {this.props.render(this.state.counter)}
+				{this.props.render(this.state.counter)}
 			</>
 		);
 	}
@@ -175,11 +246,12 @@ class Counter extends Component {
 function App() {
 	return (
 		<Wrapper>
-         <Counter render={counter => (<Message counter={counter} />)}/>
+         <Form />
+			<Counter render={(counter) => <Message counter={counter} />} />
 			<Header />
 			<Field />
 			<Btn />
-         <HelloGreating />
+			<HelloGreating />
 			<BootstrapTest
 				left={
 					<DynamicGreating color={'primary'}>
