@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { Component, useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -63,38 +63,43 @@ function Btn() {
 	return <button>{isLogged ? 'Enter' : text}</button>;
 }
 
-class Form extends Component {
-	state = {
-		advOpen: false,
-	};
+const Form = () => {
 
-	handleClick = () => {
-		this.setState(({ advOpen }) => ({
-			advOpen: !advOpen,
-		}));
-	};
+   const [advOpen, setAdv] = useState(false)
+   const [text, setText] = useState('')
 
-	myRef = React.createRef();
-	myRefConsole = React.createRef();
+	const handleClick = () => {
+      setAdv(advOpen => !advOpen)
+	}; 
 
-	componentDidMount() {
+	const myRef = useRef(1)
+	const myRefConsole = useRef(null)
+	// myRef = React.createRef();
+	// myRefConsole = React.createRef();
+
+   useEffect(() => {
+      // myRef.current++
+      myRef.current = text
+      console.log(myRef.current)
+   })
+
+/* 	componentDidMount() {
 		this.myRef.current.focus();
 		this.myRefConsole.current.doSmth();
 
 		setTimeout(this.handleClick, 3000);
-	}
+	} */
 
-	focusFirstTI = () => {
-		this.myRef.current.focus();
+	const focusFirstTI = () => {
+		myRef.current.focus();
 	};
 
-	render() {
 		return (
 			<Container>
 				<form
 					className='w-50 border mt-5 p-3 m-auto'
 					style={{ overflow: 'hidden', position: 'relative' }}
-					onClick={this.handleClick}
+					onClick={handleClick} 
 				>
 					<div className='mb-3'>
 						<label
@@ -104,13 +109,14 @@ class Form extends Component {
 							Email address
 						</label>
 						<input
-							ref={this.myRef}
+							// ref={myRef}
+                     onChange={(e) => setText(e.target.value)}
 							type='email'
 							className='form-control'
 							id='exampleFormControlInput1'
 							placeholder='name@example.com'
 						/>
-						<TextInput ref={this.myRefConsole} />
+						<TextInput ref={myRefConsole} />
 					</div>
 					<div className='mb-3'>
 						<label
@@ -120,13 +126,14 @@ class Form extends Component {
 							Example textarea
 						</label>
 						<textarea
-							onClick={this.focusFirstTI}
+							onClick={focusFirstTI}
+                     value={myRef.current}
 							className='form-control'
 							id='exampleFormControlTextarea1'
 							rows='3'
 						></textarea>
 					</div>
-					{this.state.advOpen ? (
+					{advOpen ? (
 						<Portal>
 							<Msg />
 						</Portal>
@@ -135,7 +142,6 @@ class Form extends Component {
 			</Container>
 		);
 	}
-}
 
 const Portal = (props) => {
 	const node = document.createElement('div');
