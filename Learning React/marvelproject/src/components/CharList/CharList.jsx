@@ -11,10 +11,10 @@ class CharList extends Component {
 	state = {
 		charList: [],
 		loading: true,
-      newItemLoading: false,
+		newItemLoading: false,
 		error: false,
-      offset: Math.floor(Math.random() * 1500),
-      characterEnded: false,
+		offset: Math.floor(Math.random() * 1500),
+		characterEnded: false,
 	};
 
 	marvelService = new MarvelService();
@@ -26,56 +26,80 @@ class CharList extends Component {
 		});
 	};
 
-   onCharListLoading = () => {
-      this.setState({
-         newItemLoading: true,
-      })
-   }
+	onCharListLoading = () => {
+		this.setState({
+			newItemLoading: true,
+		});
+	};
 
 	onCharListLoaded = (newCharList) => {
-      let ended = false;
-      if (newCharList.length < 9) {
-         ended = true;
-      }
+		let ended = false;
+		if (newCharList.length < 9) {
+			ended = true;
+		}
 
-		this.setState(({charList, offset}) => ({
+		this.setState(({ charList, offset }) => ({
 			charList: [...charList, ...newCharList],
 			loading: false,
-         newItemLoading: false,
-         offset: offset + 9,
-         characterEnded: ended,
+			newItemLoading: false,
+			offset: offset + 9,
+			characterEnded: ended,
 		}));
 	};
-   
-   onRequest = (offset) => {
-      this.onCharListLoading()
-      this.marvelService.getAllCharacters(offset).then(this.onCharListLoaded).catch(this.onError)
+
+	onRequest = (offset) => {
+		this.onCharListLoading();
+		this.marvelService
+			.getAllCharacters(offset)
+			.then(this.onCharListLoaded)
+			.catch(this.onError);
+	};
+
+   itemRefs = [];
+
+   setRef = (ref) => {
+      this.itemRefs.push(ref);
    }
 
-   componentDidMount() {
-      this.onRequest()
-   }
-   
+	onClickItem = (id) => {
+		this.itemRefs.forEach((item) =>
+			item.classList.remove('char__item_selected')
+		);
+		this.itemRefs[id].classList.add('char__item_selected');
+	};
+
+	componentDidMount() {
+		this.onRequest();
+	}
+
 	renderItems(arr) {
-		const items = arr.map(item => {
-			let imgStyle = { 'objectFit' : 'cover' };
+		const items = arr.map((item, i) => {
+			let imgStyle = { objectFit: 'cover' };
 			if (item.thumbnail.includes('image_not_available')) {
-				imgStyle = { 'objectFit' : 'unset' };
+				imgStyle = { objectFit: 'unset' };
 			}
 
 			return (
-				<li className='char__item' key={item.id} onClick={() => this.props.onCharacterSelected(item.id)}>
+				<li
+					className='char__item'
+					tabIndex={0}
+					ref={this.setRef}
+					key={item.id}
+					onClick={() => {
+						this.props.onCharacterSelected(item.id);
+						this.onClickItem(i);
+					}}>
 					<img src={item.thumbnail} alt={item.name} style={imgStyle} />
 					<div className='char__name'>{item.name}</div>
 				</li>
 			);
 		});
-		
+
 		return <ul className='char__grid'>{items}</ul>;
 	}
 
 	render() {
-		const { charList, loading, error, newItemLoading, offset, characterEnded } = this.state;
+		const { charList, loading, error, newItemLoading, offset, characterEnded} = this.state;
 
 		const items = this.renderItems(charList);
 
@@ -86,7 +110,7 @@ class CharList extends Component {
 		return (
 			<div className='char__list'>
 				{errorMessage} {spinner} {content}
-				<button className='button button__main button__long' style={{'display': characterEnded ? 'none' : 'block'}} disabled={newItemLoading} onClick={() => this.onRequest(offset)}>
+				<button className='button button__main button__long' style={{ display: characterEnded ? 'none' : 'block' }} disabled={newItemLoading} onClick={() => this.onRequest(offset)}>
 					<div className='inner'>load more</div>
 				</button>
 			</div>
@@ -95,7 +119,7 @@ class CharList extends Component {
 }
 
 CharList.propTypes = {
-   onCharSelected: PropTypes.func.isRequired
-}
+	onCharSelected: PropTypes.func.isRequired,
+};
 
 export default CharList;
