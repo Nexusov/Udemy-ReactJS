@@ -9,7 +9,7 @@ const ComicsList = () => {
 
    const [comicsList, setComicsList] = useState([]);
    const [newItemLoading, setNewItemLoading] = useState(false)
-   const [offset, setOffset] = useState(0)
+   const [offset, setOffset] = useState(Math.floor(Math.random() * 1500))
    const [comicsEnded, setComicsEnded] = useState(false);
 
    const {loading, error, getAllComics} = useMarvelService();
@@ -66,7 +66,7 @@ const ComicsList = () => {
    return (
       <div className="comics__list">
          {errorMessage} {spinner} {items}
-         <button className="button button__main button__long" onClick={() => onRequest(offset)}>
+         <button className="button button__main button__long" onClick={() => onRequest(offset)} disabled={newItemLoading} style={{ display: comicsEnded ? 'none' : 'block' }}>
                <div className="inner">load more</div>
          </button>
       </div>
