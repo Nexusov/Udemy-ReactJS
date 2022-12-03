@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import {NavLink} from 'react-router-dom'
 
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -77,9 +78,11 @@ const View = ({ character }) => {
             }
             {
                comics.map((item, i) => {
+                  const regExp = /\b[\w=.]+$/g
+                  const comicsId = item.resourceURI.match(regExp)
                   return (
                      <li key={i} className='char__comics-item'>
-                        {item.name}
+                        <NavLink to={`/comics/${comicsId}`}>{item.name}</NavLink>
                      </li>
                   )
                })
