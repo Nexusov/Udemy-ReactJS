@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 
 import useMarvelService from '../../services/MarvelService';
@@ -47,7 +48,6 @@ const CharList = (props) => {
 		itemRefs.current[id].classList.add('char__item_selected');
 	};
 
-
 	function renderItems(arr) {
 		const items = arr.map((item, i) => {
 			let imgStyle = { objectFit: 'cover' };
@@ -56,7 +56,8 @@ const CharList = (props) => {
 			}
 
 			return (
-				<li
+				<CSSTransition key={item.id} timeout={500} classNames="char__item">
+					<li
 					className='char__item'
 					tabIndex={0}
 					ref={el => itemRefs.current[i] = el}
@@ -71,13 +72,20 @@ const CharList = (props) => {
 						props.onCharacterSelected(item.id);
 						onClickItem(i);
 					}}>
-					<img src={item.thumbnail} alt={item.name} style={imgStyle} />
-					<div className='char__name'>{item.name}</div>
-				</li>
+						<img src={item.thumbnail} alt={item.name} style={imgStyle} />
+						<div className='char__name'>{item.name}</div>
+					</li>
+				</CSSTransition>
 			);
 		});
 
-		return <ul className='char__grid'>{items}</ul>;
+		return(
+			<ul className='char__grid'>
+				<TransitionGroup component={null}>
+					{items}
+				</TransitionGroup>
+			</ul>
+		) 
 	}
 
    const items = renderItems(charList);
