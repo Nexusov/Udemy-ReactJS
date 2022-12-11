@@ -1,47 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {createStore} from 'redux'
+import {createStore, bindActionCreators} from 'redux'
 
-const initialState = {value: 0}
+import reducer from './reducer';
+import * as actions from './actions';
 
-const reducer = (state = initialState, action) => {
-   switch (action.type) {
-      case 'INC':
-         return {
-            ...state,
-            value: state.value + 1
-         };
-      case 'DEC':
-         return {
-            ...state,
-            value: state.value - 1
-         };
-      case 'RND':
-         return {
-            ...state,
-            value: state.value * action.payload
-         };
-      default: return state
-   }
-}
 
 const store = createStore(reducer)
 
+const {dispatch, subscribe, getState} = store
+
+
 const update = () => {
-   document.getElementById('counter').textContent = store.getState().value
+   document.getElementById('counter').textContent = getState().value
 }
 
-store.subscribe(update)
+subscribe(update)
 
-const inc = () => ({type:'INC'}) // actionCreator
-const dec = () => ({type:'DEC'}) // actionCreator
-const rnd = (value) => ({type:'RND', payload: value}) // actionCreator
+/* const bindActionCreator = (creator, dispatch) => (...args) => {
+   dispatch(creator(...args))
+} */
 
-document.getElementById('inc').addEventListener('click', () => store.dispatch(inc()))
-document.getElementById('dec').addEventListener('click', () => store.dispatch(dec()))
+const {inc, dec, rnd} = bindActionCreators({actions}, dispatch)
+/* const decDispatch = bindActionCreator(dec, dispatch)
+const rndDispatch = bindActionCreator(rnd, dispatch) */
+
+document.getElementById('inc').addEventListener('click', inc)
+document.getElementById('dec').addEventListener('click', dec)
 document.getElementById('rnd').addEventListener('click', () => {
    const value = Math.floor(Math.random() * 100 - 50)
-   store.dispatch(rnd(value))
+   rnd(value)
 })
 
 
