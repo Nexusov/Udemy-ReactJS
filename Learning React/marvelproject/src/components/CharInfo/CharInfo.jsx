@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import {NavLink} from 'react-router-dom'
 
 import useMarvelService from '../../services/MarvelService';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import Spinner from '../Spinner/Spinner';
-import Skeleton from '../Skeleton/Skeleton';
+import setContent from '../../utils/setContent';
+
 
 import './charInfo.scss';
 
@@ -13,7 +12,7 @@ const CharInfo = (props) => {
 
    const [character, setCharacter] = useState(null);
 
-	const {loading, error, getCharacter, clearError} = useMarvelService();
+	const {process, getCharacter, clearError, setProcess} = useMarvelService();
 
    useEffect(() => {
       updateCharacter();
@@ -25,28 +24,22 @@ const CharInfo = (props) => {
 		if (!characterId) {return}
 
       clearError()
-		getCharacter(characterId).then(onCharacterLoaded);
+		getCharacter(characterId).then(onCharacterLoaded).then(() => setProcess('confirmed'));
 	};
 
 	const onCharacterLoaded = (character) => {
       setCharacter(character);
 	};
 
-
-   const skeleton = character || loading || error ? null : <Skeleton />
-   const errorMessage = error ? <ErrorMessage/> : null;
-   const spinner = loading ? <Spinner/> : null
-   const content = !(loading || error || !character) ? <View character={character}/> : null
-
    return (
       <div className='char__info'>
-         {skeleton} {errorMessage} {spinner} {content}
+         {setContent(process, View, character)}
       </div>
    )
 }
 
-const View = ({ character }) => {
-   const {name, thumbnail, description, homepage, wiki, comics} = character
+const View = ({ data }) => {
+   const {name, thumbnail, description, homepage, wiki, comics} = data
 
    let imgStyle = {'objectFit': 'cover'}
    if (thumbnail.includes('image_not_available')) {
@@ -73,9 +66,7 @@ const View = ({ character }) => {
 			<div className='char__descr'>{description}</div>
 			<div className='char__comics'>Comics:</div>
 			<ul className='char__comics-list'>
-            {
-               comics.length > 0 ? null : 'There are no comics with this character'
-            }
+            {comics.length > 0 ? null : 'There are no comics with this character'}
             {
                comics.map((item, i) => {
                   const regExp = /\b[\w=.]+$/g
