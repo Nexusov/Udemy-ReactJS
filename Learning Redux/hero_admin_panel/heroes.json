@@ -7,12 +7,6 @@
       "element": ""
     },
     {
-      "id": "5cda765e-933d-474d-8095-de46a1abee95",
-      "name": "fd",
-      "description": "ng",
-      "element": "wind"
-    },
-    {
       "id": "e768140e-6b0d-4acf-9654-eda75f7d45b9",
       "name": "ds",
       "description": "ds",
@@ -23,6 +17,12 @@
       "name": " nm,",
       "description": " nm,",
       "element": "earth"
+    },
+    {
+      "id": "ba6e6dac-6fc4-4c90-81e5-bf7316d8fd29",
+      "name": "Vangard",
+      "description": "ничего я же тупой",
+      "element": "wind"
     }
   ],
   "filters": [
