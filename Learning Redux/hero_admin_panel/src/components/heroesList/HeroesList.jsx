@@ -10,9 +10,7 @@ import { createSelector } from 'reselect'
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 
 import {
-   heroesFetching,
-   heroesFetched,
-   heroesFetchingError,
+   fetchHeroes,
    heroDeleted,
    heroesDeletingError
 } from '../../actions';
@@ -50,10 +48,7 @@ const HeroesList = () => {
    const {request} = useHttp();
 
    useEffect(() => {
-      dispatch('HEROES_FETCHING');
-      request("http://localhost:3001/heroes")
-         .then(data => dispatch(heroesFetched(data)))
-         .catch(() => dispatch(heroesFetchingError()))
+      dispatch(fetchHeroes(request));
 
       // eslint-disable-next-line
    }, []);
