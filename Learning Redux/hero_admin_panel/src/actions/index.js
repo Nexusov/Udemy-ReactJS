@@ -1,4 +1,6 @@
 import { createAction } from "@reduxjs/toolkit";
+import { heroesFetching, heroesFetched, heroesFetchingError } from '../components/heroesList/heroesSlice'
+import {filtersFetching, filtersFetched, filtersFetchingError} from '../components/heroesFilters/filtersSlice';
 
 export const fetchHeroes = (request) => (dispatch) => {
    dispatch(heroesFetching());
@@ -14,7 +16,9 @@ export const fetchFilters = (request) => (dispatch) => {
       .catch(() => dispatch(filtersFetchingError()))
 }
 
-export const heroesFetching = createAction('HEROES_FETCHING') 
+//* ============ creating actions createAction REDUX TOOLKIT syntax ============ */
+
+/* export const heroesFetching = createAction('HEROES_FETCHING') 
 
 export const heroesFetched = createAction('HEROES_FETCHED')
 
@@ -26,7 +30,8 @@ export const heroDeleted = createAction('HERO_DELETED')
 
 export const heroesDeletingError = createAction('HEROES_DELETING_ERROR')
 
-export const heroesCreatingError = createAction('HEROES_CREATING_ERROR')
+export const heroesCreatingError = createAction('HEROES_CREATING_ERROR') */
+
 
 //* ============ creating actions with default REDUX syntax ============ */
 
@@ -75,12 +80,12 @@ export const heroesCreatingError = createAction('HEROES_CREATING_ERROR')
    }
 } */
 
-export const activeFilterChanged = (filter) => {
+/* export const activeFilterChanged = (filter) => {
    return {
       type: 'ACTIVE_FILTER_CHANGED',
       payload: filter
    }
-}
+} */
 
 /* export const activeFilterChanged = (filter) => (dispatch) => {
    setTimeout(() => {
@@ -91,21 +96,21 @@ export const activeFilterChanged = (filter) => {
    }, 1000)
 } */
 
-export const filtersFetching = () => {
+/* export const filtersFetching = () => {
    return {
       type: 'FILTERS_FETCHING'
    }
-}
+} */
 
-export const filtersFetched = (filter) => {
+/* export const filtersFetched = (filter) => {
    return {
       type: 'FILTERS_FETCHED',
       payload: filter
    }
-}
+} */
 
-export const filtersFetchingError = () => {
+/* export const filtersFetchingError = () => {
    return {
       type: 'FILTERS_FETCHING_ERROR'
    }
-}
+} */

@@ -9,11 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect'
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 
-import {
-   fetchHeroes,
-   heroDeleted,
-   heroesDeletingError
-} from '../../actions';
+import { fetchHeroes } from '../../actions';
+import { heroDeleted, heroesDeletingError } from './heroesSlice'
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import { useCallback } from 'react';

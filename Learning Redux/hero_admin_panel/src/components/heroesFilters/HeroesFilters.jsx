@@ -11,7 +11,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import { fetchFilters, activeFilterChanged } from '../../actions';
+import { fetchFilters } from '../../actions';
+import { filtersChanged } from './filtersSlice';
 import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
@@ -41,7 +42,7 @@ const HeroesFilters = () => {
 
          const btnClass = classNames('btn', className, {'active' : name === activeFilter});
          
-         return <button key={name} id={name} className={btnClass} onClick={() => dispatch(activeFilterChanged(name))}>{label}</button>
+         return <button key={name} id={name} className={btnClass} onClick={() => dispatch(filtersChanged(name))}>{label}</button>
       })
    }
 
