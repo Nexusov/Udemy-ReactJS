@@ -1,4 +1,3 @@
-import heroes from '../reducers/heroes';
 import { createAction } from "@reduxjs/toolkit";
 
 export const fetchHeroes = (request) => (dispatch) => {
@@ -15,6 +14,22 @@ export const fetchFilters = (request) => (dispatch) => {
       .catch(() => dispatch(filtersFetchingError()))
 }
 
+export const heroesFetching = createAction('HEROES_FETCHING') 
+
+export const heroesFetched = createAction('HEROES_FETCHED')
+
+export const heroesFetchingError = createAction('HEROES_FETCHING_ERROR')
+
+export const heroCreated = createAction('HERO_CREATED')
+
+export const heroDeleted = createAction('HERO_DELETED')
+
+export const heroesDeletingError = createAction('HEROES_DELETING_ERROR')
+
+export const heroesCreatingError = createAction('HEROES_CREATING_ERROR')
+
+//* ============ creating actions with default REDUX syntax ============ */
+
 /* export const heroesFetching = () => {
    return {
       type: 'HEROES_FETCHING'
@@ -28,41 +43,37 @@ export const fetchFilters = (request) => (dispatch) => {
    }
 } */
 
-export const heroesFetching = createAction('HEROES_FETCHING') 
-
-export const heroesFetched = createAction('HEROES_FETCHED')
-
-export const heroesFetchingError = () => {
+/* export const heroesFetchingError = () => {
    return {
       type: 'HEROES_FETCHING_ERROR'
    }
-}
+} */
 
-export const heroesDeletingError = () => {
-   return {
-      type: 'HEROES_DELETING_ERROR'
-   }
-}
-
-export const heroDeleted = (id) => {
-   return {
-      type: 'HERO_DELETED',
-      payload: id
-   }
-}
-
-export const heroCreated = (hero) => {
+/* export const heroCreated = (hero) => {
    return {
       type: 'HERO_CREATED',
       payload: hero
    }
-}
+} */
 
-export const heroesCreatingError = () => {
+/* export const heroDeleted = (id) => {
+   return {
+      type: 'HERO_DELETED',
+      payload: id
+   }
+} */
+
+/* export const heroesDeletingError = () => {
+   return {
+      type: 'HEROES_DELETING_ERROR'
+   }
+} */
+
+/* export const heroesCreatingError = () => {
    return {
       type: 'HEROES_CREATING_ERROR'
    }
-}
+} */
 
 export const activeFilterChanged = (filter) => {
    return {
