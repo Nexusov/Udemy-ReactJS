@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit'
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 
-import { heroDeleted, heroesDeletingError, fetchHeroes } from './heroesSlice'
+import { heroDeleted, heroesDeletingError, fetchHeroes, filteredHeroesSelector } from './heroesSlice'
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import { useCallback } from 'react';
@@ -17,18 +17,6 @@ import { useCallback } from 'react';
 import './heroesList.scss';
 
 const HeroesList = () => {
-
-   const filteredHeroesSelector = createSelector(
-      (state) => state.filters.activeFilter,
-      (state) => state.heroes.heroes,
-      (filter, heroes) => {
-         if (filter === 'all') {
-            return heroes
-         } else {
-            return heroes.filter(item => item.element === filter)
-         }
-      }
-   )
 
 /*    const filteredHeroes = useSelector(state => {
       if (state.filters.activeFilter === 'all') {
