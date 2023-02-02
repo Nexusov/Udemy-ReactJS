@@ -4,7 +4,7 @@
       "id": "245a8ea8-b07f-4c2b-95a5-46b8706db8c2",
       "name": "Егор",
       "description": "tg",
-      "element": ""
+      "element": "fire"
     },
     {
       "id": "e768140e-6b0d-4acf-9654-eda75f7d45b9",
@@ -27,26 +27,31 @@
   ],
   "filters": [
     {
+      "id": "all",
       "name": "all",
       "label": "Все",
       "className": "btn-outline-dark"
     },
     {
+      "id": "fire",
       "name": "fire",
       "label": "Огонь",
       "className": "btn-danger"
     },
     {
+      "id": "water",
       "name": "water",
       "label": "Вода",
       "className": "btn-primary"
     },
     {
+      "id": "wind",
       "name": "wind",
       "label": "Ветер",
       "className": "btn-success"
     },
     {
+      "id": "earth",
       "name": "earth",
       "label": "Земля",
       "className": "btn-secondary"
