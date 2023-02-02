@@ -1,14 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
 
-import {filtersFetching, filtersFetched, filtersFetchingError} from '../components/heroesFilters/filtersSlice';
-
-export const fetchFilters = (request) => (dispatch) => {
-   dispatch(filtersFetching());
-   request("http://localhost:3001/filters")
-      .then(data => dispatch(filtersFetched(data)))
-      .catch(() => dispatch(filtersFetchingError()))
-}
-
 //* ============ creating actions createAction REDUX TOOLKIT syntax ============ */
 
 /* export const heroesFetching = createAction('HEROES_FETCHING') 
