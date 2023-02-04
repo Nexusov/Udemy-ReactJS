@@ -4,7 +4,7 @@
 // Удаление идет и с json файла при помощи метода DELETE
 
 import {useHttp} from '../../hooks/http.hook';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit'
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
@@ -13,6 +13,7 @@ import { heroDeleted, heroesDeletingError, fetchHeroes, filteredHeroesSelector }
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import { useCallback } from 'react';
+import { useGetHeroesQuery, useDeleteHeroMutation } from '../../api/apiSlice';
 
 import './heroesList.scss';
 
@@ -26,28 +27,54 @@ const HeroesList = () => {
       }
    }) */
 
-   const filteredHeroes = useSelector(filteredHeroesSelector)
-   const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
-   const dispatch = useDispatch();
-   const {request} = useHttp();
+   const {
+      data: heroes = [],
+      isFetching,
+      isLoading,
+      isSuccess,
+      isError,
+      error
+   } = useGetHeroesQuery()
 
-   useEffect(() => {
+   const [deleteHero] = useDeleteHeroMutation()
+
+   const activeFilter = useSelector(state => state.filters.activeFilter)
+
+   const filteredHeroes = useMemo(() => {
+      const filteredHeroes = heroes.slice()
+
+      if (activeFilter === 'all') {
+         return filteredHeroes
+      } else {
+         return filteredHeroes.filter(item => item.element === activeFilter)
+      }
+   }, [heroes, activeFilter])
+
+/* const filteredHeroes = useSelector(filteredHeroesSelector)
+   const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus); */
+
+/* const dispatch = useDispatch(); */
+/* const {request} = useHttp(); */
+
+/* useEffect(() => {
       dispatch(fetchHeroes());
 
       // eslint-disable-next-line
-   }, []);
+   }, []); */
 
    const onDelete = useCallback((id) => {
-      request(`http://localhost:3001/heroes/${id}`, 'DELETE')
+
+      deleteHero(id)
+
+/*    request(`http://localhost:3001/heroes/${id}`, 'DELETE')
          .then(dispatch(heroDeleted(id)))
-         .catch(() => dispatch(heroesDeletingError()))
+         .catch(() => dispatch(heroesDeletingError())) */
 
-      // eslint-disable-next-line
-   }, [request])
+   }, /* [request] */)
 
-   if (heroesLoadingStatus === "loading") {
+   if (isLoading) {
       return <Spinner/>;
-   } else if (heroesLoadingStatus === "error") {
+   } else if (isError) {
       return <h5 className="text-center mt-5">Ошибка загрузки</h5>
    }
 
