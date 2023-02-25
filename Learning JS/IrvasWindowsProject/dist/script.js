@@ -86,6 +86,73 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../Food_dist/js/modules/timer.js":
+/*!****************************************!*\
+  !*** ../Food_dist/js/modules/timer.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function timer(id, deadline) {
+  // Timer
+  function getTimeRemaining(endtime) {
+    var t = Date.parse(endtime) - Date.parse(new Date());
+    var days = Math.floor(t / (1000 * 60 * 60 * 24));
+    var hours = Math.floor(t / (1000 * 60 * 60) % 24);
+    var minutes = Math.floor(t / 1000 / 60 % 60);
+    var seconds = Math.floor(t / 1000 % 60);
+    return {
+      total: t,
+      days: days,
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds
+    };
+  }
+
+  function setZero(number) {
+    if (number >= 0 && number < 10) {
+      return "0".concat(number);
+    } else {
+      return number;
+    }
+  }
+
+  function setClock(selector, endtime) {
+    var timer = document.querySelector(selector);
+    var days = timer.querySelector('#days');
+    var hours = timer.querySelector('#hours');
+    var minutes = timer.querySelector('#minutes');
+    var seconds = timer.querySelector('#seconds');
+    var timeInterval = setInterval(updateClock, 1000);
+    updateClock(); // вызываем функцию тут, чтобы не было моргания при загрузке страницы
+
+    function updateClock() {
+      var t = getTimeRemaining(endtime);
+      days.innerText = setZero(t.days);
+      hours.innerText = setZero(t.hours);
+      minutes.innerText = setZero(t.minutes);
+      seconds.innerText = setZero(t.seconds);
+
+      if (t.total <= 0) {
+        clearInterval(timeInterval);
+        days.innerText = '00';
+        hours.innerText = '00';
+        minutes.innerText = '00';
+        seconds.innerText = '00';
+      }
+    }
+  }
+
+  setClock(id, deadline);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (timer);
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/a-function.js":
 /*!******************************************************!*\
   !*** ./node_modules/core-js/internals/a-function.js ***!
@@ -17919,6 +17986,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/changeModalState */ "./src/js/modules/changeModalState.js");
+/* harmony import */ var _Food_dist_js_modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../Food_dist/js/modules/timer */ "../Food_dist/js/modules/timer.js");
+
 
 
 
@@ -17926,12 +17995,14 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', function () {
   var modalState = {};
+  var deadline = '2025-07-20';
   Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(modalState);
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider ', '.glazing_block', '.glazing_content', 'active');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more', 'inline-block');
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState);
+  Object(_Food_dist_js_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])('.container1', deadline);
 });
 
 /***/ }),
