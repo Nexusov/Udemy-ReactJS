@@ -1,3 +1,5 @@
+/* ==================== null and undefined ==================== */
+
 const test: null = null
 const test2: any = null
 const test3: string = null // error
@@ -19,7 +21,10 @@ const data = getRndData()
 const trimmedData = data.trim() // error, coz can be null
 const trimmedDataWorks = data ? data.trim() : null
 
+/* =========================================================== */
 
+
+/* ==================== symbol and bigint ==================== */
 
 let id: symbol = Symbol('id')
 
@@ -36,3 +41,20 @@ let num2: bigint = 2n
 console.log(num1 + num2) // 3n
 console.log(num1 + 5) // error
 
+/* =========================================================== */
+
+
+/* ==================== arrays ==================== */
+
+const departments: string[] = ['dev', 'design', 'marketing']
+const department = departments[0]
+const report = departments.filter((item: string )=> item !== 'dev').map((item: string) => `${item} - done`)
+
+const [first] = report
+console.log(first) // design - done
+
+const nums: number[] = [3, 5, 6]
+const matrix: number[][] = [[3, 5, 6], [7, 8, 9,]]
+
+
+/* ================================================= */
