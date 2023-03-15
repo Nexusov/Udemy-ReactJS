@@ -1,20 +1,25 @@
 
-let isBirthdayData: boolean = true
-let ageData: number = 40
-let userNameData: string = 'John'
+
+const userData = {
+   isBirthdayData: true,
+   ageData: 40,
+   userNameData: 'John',
+   messages: {
+      error: 'Error'
+   }
+}
 
 const createError = (msg: string): never => { 
    throw new Error(msg)
 }
 
-function logBrtMsg(isBirthday: boolean, userName: string, age: number): string {
-   if (isBirthday) {
-      return `Congrats ${userName}, age: ${age + 1}`
-   } else if (isBirthday === false) {
-      return 'Too bad'
+function logBrtMsg({isBirthdayData, userNameData, ageData, messages: {error}}: {isBirthdayData: boolean, userNameData: string, ageData: number, messages: {error : string}}): string {
+   if (isBirthdayData) {
+      return `Congrats ${userNameData}, age: ${ageData + 1}`
+   } else {
+      return createError(error)
    }
-   return createError('Error')
 }
 
 
-logBrtMsg(isBirthdayData, userNameData, ageData)
+logBrtMsg(userData)
