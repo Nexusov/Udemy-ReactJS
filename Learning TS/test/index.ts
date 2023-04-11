@@ -9,6 +9,8 @@ const userData = {
    }
 }
 
+const userDateTuple: [boolean, number, string] = [true, 40, 'John'] // кортеж (tuple)
+const userDateTupleWithSpread: [boolean, number, ...string[]] = [true, 40, 'John', 'Alex'] 
 const createError = (msg: string): never => { 
    throw new Error(msg)
 }
