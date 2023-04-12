@@ -114,3 +114,28 @@ function logValue(x: string | Date) {
 
 
 /* ================================================= */
+
+
+/* ==================== Litral types ==================== */
+
+let msg: 'Hello' = 'Hello'
+msg = 'Hello'
+
+function startServer(protocol: 'http' | 'https', port: 3000 | 3001): 'Server started' {
+   console.log(`Server started on ${protocol}://server:${port}`)
+   return 'Server started'
+}
+startServer('https', 3001)
+
+
+function createAnimation(id: string | number, animationName: string, timingFunc: 'ease' | 'ease-out' | 'ease-in' = 'ease', duration: number, iterCount: 'infinite' | number): void {
+   const elem = document.querySelector(`#${id}`) as HTMLElement
+   
+   if (elem) {
+      console.log(elem.style.animation = `${animationName} ${timingFunc} ${duration} ${iterCount}`) 
+   }
+}
+
+createAnimation('id', 'fade', 'ease-in', 5, 1)
+
+/* ================================================= */
