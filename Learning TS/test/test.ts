@@ -58,3 +58,17 @@ const matrix: number[][] = [[3, 5, 6], [7, 8, 9,]]
 
 
 /* ================================================= */
+
+
+/* ==================== Union ==================== */
+
+const message: string | number = 5
+const messages: string[] | number[] = ['a', 'b']
+
+function printMsg (msg: string | number): void {
+   console.log(msg)
+}
+printMsg(4)
+printMsg('hello')
+
+/* ================================================= */
