@@ -127,8 +127,10 @@ function startServer(protocol: 'http' | 'https', port: 3000 | 3001): 'Server sta
 }
 startServer('https', 3001)
 
+type AnimationTimingFunc = 'ease' | 'ease-out' | 'ease-in'
+type AnimationID = string | number
 
-function createAnimation(id: string | number, animationName: string, timingFunc: 'ease' | 'ease-out' | 'ease-in' = 'ease', duration: number, iterCount: 'infinite' | number): void {
+function createAnimation(id: AnimationID, animationName: string, timingFunc: AnimationTimingFunc = 'ease', duration: number, iterCount: 'infinite' | number): void {
    const elem = document.querySelector(`#${id}`) as HTMLElement
    
    if (elem) {
