@@ -23,16 +23,34 @@ function logBrtMsg({isBirthdayData, userNameData, ageData, messages: {error}}: {
    }
 }
 
-
 logBrtMsg(userData)
 
 
-const serverConfig: {protocol: 'http' | 'https'; port: 3000 | 3001} = {
-   protocol: 'https',
-   port: 3001
+type Config = { 
+   protocol: 'http' | 'https';
+   port: 3000 | 3001 
+} 
+
+type Role = {
+   role: string
 }
 
-const startMyServer: (protocol: 'http' | 'https', port: 3000 | 3001) => string = (protocol: 'http' | 'https', port: 3000 | 3001): 'Server started' => {
+type ConfigWithRole = Config & Role
+
+const serverConfig: ConfigWithRole = {
+   protocol: 'https',
+   port: 3001,
+   role: 'admin'
+}
+
+const backupConfig: Config = {
+   protocol: 'http',
+   port: 3000
+}
+
+type StartFunction = (protocol: 'http' | 'https', port: 3000 | 3001) => string
+
+const startMyServer: StartFunction = (protocol: 'http' | 'https', port: 3000 | 3001): 'Server started' => {
    console.log(`Server started on ${protocol}://server:${port}`)
    return 'Server started'
 }
