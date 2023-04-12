@@ -25,3 +25,29 @@ function logBrtMsg({isBirthdayData, userNameData, ageData, messages: {error}}: {
 
 
 logBrtMsg(userData)
+
+
+const serverConfig: {protocol: 'http' | 'https'; port: 3000 | 3001} = {
+   protocol: 'https',
+   port: 3001
+}
+
+const startMyServer: (protocol: 'http' | 'https', port: 3000 | 3001) => string = (protocol: 'http' | 'https', port: 3000 | 3001): 'Server started' => {
+   console.log(`Server started on ${protocol}://server:${port}`)
+   return 'Server started'
+}
+
+startMyServer(serverConfig.protocol, serverConfig.port)
+
+type AnimationTimingFunction = 'ease' | 'ease-out' | 'ease-in'
+type AnimationId = string | number
+
+function makeAnimation(id: AnimationId, animationName: string, timingFunc: AnimationTimingFunction = 'ease', duration: number, iterCount: 'infinite' | number): void {
+   // const elem = document.querySelector(`#${id}`) as HTMLElement
+   
+   if (elem) {
+      console.log(elem.style.animation = `${animationName} ${timingFunc} ${duration} ${iterCount}`) 
+   }
+}
+
+makeAnimation('id', 'fade', 'ease-in', 5, 1)
