@@ -26,42 +26,67 @@ function logBrtMsg({isBirthdayData, userNameData, ageData, messages: {error}}: {
 logBrtMsg(userData)
 
 
-type Config = { 
+/* type Config = { 
    protocol: 'http' | 'https';
    port: 3000 | 3001 
 } 
+ */
+interface IConfig {
+   protocol: 'http' | 'https';
+   port: 3000 | 3001 
+   log: (msg: string) => void
+}
 
+interface IROle {
+   role: string
+}
+
+interface IConfigWithRole extends IConfig, IROle {}
+
+/* 
 type Role = {
    role: string
 }
 
 type ConfigWithRole = Config & Role
-
-const serverConfig: ConfigWithRole = {
+*/
+const serverConfig: IConfigWithRole = {
    protocol: 'https',
    port: 3001,
-   role: 'admin'
+   role: 'admin',
+   log: (msg: string): void => console.log(msg)
 }
-
+/* 
 const backupConfig: Config = {
    protocol: 'http',
    port: 3000
 }
+*/
 
-type StartFunction = (protocol: 'http' | 'https', port: 3000 | 3001) => string
+type StartFunction = (protocol: 'http' | 'https', port: 3000 | 3001, log: (msg: string) => void) => string 
 
-const startMyServer: StartFunction = (protocol: 'http' | 'https', port: 3000 | 3001): 'Server started' => {
-   console.log(`Server started on ${protocol}://server:${port}`)
+const startMyServer: StartFunction = (protocol: 'http' | 'https', port: 3000 | 3001, log: (msg: string) => void): 'Server started' => {
+   log(`Server started on ${protocol}://server:${port}`)
    return 'Server started'
 }
 
-startMyServer(serverConfig.protocol, serverConfig.port)
+startMyServer(serverConfig.protocol, serverConfig.port, serverConfig.log)
 
 type AnimationTimingFunction = 'ease' | 'ease-out' | 'ease-in'
 type AnimationId = string | number
 
+interface IStyles {
+   [key: string]: string
+}
+
+const styles: IStyles = {
+   position: 'absolute',
+   top: '20px',
+   left: '50px'
+}
+
 function makeAnimation(id: AnimationId, animationName: string, timingFunc: AnimationTimingFunction = 'ease', duration: number, iterCount: 'infinite' | number): void {
-   // const elem = document.querySelector(`#${id}`) as HTMLElement
+   const elem = document.querySelector(`#${id}`) as HTMLElement
    
    if (elem) {
       console.log(elem.style.animation = `${animationName} ${timingFunc} ${duration} ${iterCount}`) 

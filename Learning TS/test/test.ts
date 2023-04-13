@@ -141,3 +141,28 @@ function createAnimation(id: AnimationID, animationName: string, timingFunc: Ani
 createAnimation('id', 'fade', 'ease-in', 5, 1)
 
 /* ================================================= */
+
+
+const serverNewConfig: IBasicConfig = {
+   protocol: 'https',
+   port: 3001,
+   role: 'admin',
+}
+
+const backupConfig: IBasicConfig  = {
+   protocol: 'http',
+   port: 3000
+}
+
+interface IBasicConfig {
+   protocol: string,
+   port: number
+}
+
+const startMyNewServer = (config: IBasicConfig): 'Server started' => {
+   console.log(`Server started on ${config.protocol}://server:${config.port}`)
+   return 'Server started'
+}
+
+startMyNewServer(serverNewConfig)
+startMyNewServer(backupConfig)
