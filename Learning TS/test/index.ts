@@ -94,3 +94,23 @@ function makeAnimation(id: AnimationId, animationName: string, timingFunc: Anima
 }
 
 makeAnimation('id', 'fade', 'ease-in', 5, 1)
+
+
+interface IUserData {
+   isBirthdayData: boolean,
+   ageData: number,
+   userNameData: string
+}
+
+const newUserData = '{isBirthdayData: true, ageData: 40, userNameData: "John"}'
+
+const userObj: IUserData = JSON.parse(newUserData)
+console.log(userObj.smt) // error
+
+
+let isOkay = true
+let movement: boolean | string = false
+
+if (isOkay) {
+   movement = 'moving'
+}
