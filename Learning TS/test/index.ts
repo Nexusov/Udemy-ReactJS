@@ -114,3 +114,27 @@ let movement: boolean | string = false
 if (isOkay) {
    movement = 'moving'
 }
+
+
+interface IUser {
+   login: string,
+   password: string,
+   age: number,
+   addr?: string // ? - means addr is optional 
+   parents?: {
+      mother?: string;
+      father?: string
+   }
+}
+
+const user: IUser = {
+   login: 'first',
+   password: 'qwerty',
+   age: 50
+}
+
+const dbName = '123'
+
+function sendUserData(obj: IUser, db?: string): void {
+   console.log(obj, db?.toLocaleLowerCase)
+}
