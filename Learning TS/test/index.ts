@@ -117,7 +117,7 @@ if (isOkay) {
 
 
 interface IUser {
-   login: string,
+   readonly login: string,
    password: string,
    age: number,
    addr?: string // ? - means addr is optional 
@@ -133,8 +133,30 @@ const user: IUser = {
    age: 50
 }
 
+user.login = 'test' // error
+
+const userFreeze: Readonly<IUser> = {
+   login: 'first',
+   password: 'qwerty',
+   age: 50
+}
+
+userFreeze.age = 'test' // error
+userFreeze.password = 'test' // error
+
 const dbName = '123'
 
 function sendUserData(obj: IUser, db?: string): void {
    console.log(obj, db?.toLocaleLowerCase)
 }
+
+
+const basicPorts: readonly number[] = [3000, 3001, 5555 ]
+basicPorts[0] = 5 // error
+
+const basicPorts2: ReadonlyArray<number> = [3000, 3001, 5555 ]
+basicPorts2[0]= 5 // error
+
+const basicPortsTuple: readonly [number, ...string[]] = [3000, 'test', 'test']
+basicPortsTuple[0] = 5 // error
+
