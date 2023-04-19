@@ -188,3 +188,47 @@ function frame(elem: string, dir: Directions, tFunc: TimingFunc): void {
 }
 
 frame('id', Directions.RIGHT, TimingFunc.LINEAR)
+
+
+
+let smth: unknown
+smth = 'Ivan'
+
+let dataX: string[] = smth // error
+dataX.find(e => e)
+
+const someValue: any = 10
+someValue.method() // no error
+
+const someValueX: unknown = 10
+someValueX.method() // error
+
+function fetchData(data: unknown): void {
+   if (typeof data == 'string') {
+      console.log(data.toLowerCase) // no error
+   }
+   data.method() // error
+}
+
+const userDataX = '{isBirthdayData: true, ageData: 40, userNameData: "John"}'
+
+function safeParse(s: string): unknown {
+   return JSON.parse(s)
+}
+const parseData = safeParse(userDataX)
+function transferData(d: unknown): void {
+   if (typeof d === 'string') {
+      console.log(d.toLowerCase)
+   } else if (typeof d === 'object' && d) {
+      console.log(userDataX)
+   } else {
+      console.error('Some Error')
+   }
+}
+
+transferData(userDataX)
+
+type T0 = any | unknown
+type T1 = number | unknown
+type T2 = any & unknown
+type T3 = number & unknown
