@@ -160,3 +160,31 @@ basicPorts2[0]= 5 // error
 const basicPortsTuple: readonly [number, ...string[]] = [3000, 'test', 'test']
 basicPortsTuple[0] = 5 // error
 
+
+
+enum Directions {
+   TOP,
+   RIGHT,
+   LEFT,
+   BOTTOM
+}
+
+enum TimingFunc {
+   EASE = 'ease',
+   EASE_IN = 'ease-in',
+   LINEAR = 'linear'
+}
+
+enum TimingFuncTest {
+   EASE = 1,
+   EASE_IN = 2,
+   LINEAR = EASE * 5
+}
+
+function frame(elem: string, dir: Directions, tFunc: TimingFunc): void {
+   if (dir === Directions.RIGHT) {
+      console.log(tFunc) // linear
+   }
+}
+
+frame('id', Directions.RIGHT, TimingFunc.LINEAR)
