@@ -232,3 +232,26 @@ type T0 = any | unknown
 type T1 = number | unknown
 type T2 = any & unknown
 type T3 = number & unknown
+
+
+
+const dataFromControl = {
+   water: 200,
+   el: 350
+}
+
+function checkMyReadings(data: typeof dataFromControl): boolean {
+   const dataFromUser = {
+      water: 200,
+      el: 350
+   }
+
+   if (data.el === dataFromUser.el && data.water === dataFromUser.water) {
+      return true
+   } else {
+      return false
+   }
+}
+
+const PI = 3.14
+let PIClone: typeof PI
