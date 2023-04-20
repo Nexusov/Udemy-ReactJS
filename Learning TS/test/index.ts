@@ -255,3 +255,32 @@ function checkMyReadings(data: typeof dataFromControl): boolean {
 
 const PI = 3.14
 let PIClone: typeof PI
+
+
+
+const fetchSomeData = (url: string, method: 'GET' | 'POST'): void => {
+   console.log(method)
+}
+
+const reqOptions = {
+   url: 'https://someurl.com',
+   method: 'GET'
+}
+
+// or like this
+const reqOptions2 = {
+   url: 'https://someurl.com',
+   method: 'GET' as 'GET'
+}
+
+// or like this
+const reqOptions3 = {
+   url: 'https://someurl.com',
+   method: 'GET'
+} as const
+
+fetchSomeData('qqq', 'GET')
+fetchSomeData(reqOptions.url, reqOptions.method as 'GET')
+fetchSomeData(reqOptions.url, <'GET'>reqOptions.method)
+fetchSomeData(reqOptions2.url, reqOptions2.method)
+fetchSomeData(reqOptions3.url, reqOptions3.method)
