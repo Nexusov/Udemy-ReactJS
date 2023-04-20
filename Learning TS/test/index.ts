@@ -315,3 +315,60 @@ function transformDepartment(department: IDepartment, amount: number): IProject 
 }
 
 const mainProject: IProject = transformDepartment(departmentX, 4000)
+
+
+
+
+function isNumber(n: string | number | boolean): n is number { // type guard
+   return typeof n === 'number'
+}
+
+function isNumber2(n: unknown): n is number { // type guard
+   return typeof n === 'number'
+}
+
+function printMessage(msg: string | number): void {
+   if (Array.isArray(msg)) {
+      msg.forEach(m => console.log(m))
+   } else if (isNumber(msg)) {
+      console.log(msg)
+   } else {
+      console.log(msg)
+   }
+}
+
+
+interface ICar {
+   engine: string,
+   wheels: {
+      number: number,
+      type: string
+   },
+}
+
+interface IShip {
+   engine: string,
+   sail: string,
+}
+
+function isCar(car: ICar | IShip): car is ICar { // type guard or type flow
+   return 'wheels' in car
+}
+
+function isCar2(car: ICar | IShip): car is ICar { // powerfull type guard or type flow
+   return (car as ICar).wheels.number !== undefined
+}
+
+function isShip(ship: IShip | IShip): ship is IShip { // type guard or type flow
+   return 'sail' in ship
+}
+
+
+function repairVehicle(vehicle: ICar | IShip) {
+   if (isCar(vehicle)) {
+      console.log(vehicle.wheels)
+   } else if (isShip(vehicle)) {
+      console.log(vehicle.sail)
+   } 
+}
+
