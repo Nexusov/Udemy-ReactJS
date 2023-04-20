@@ -284,3 +284,34 @@ fetchSomeData(reqOptions.url, reqOptions.method as 'GET')
 fetchSomeData(reqOptions.url, <'GET'>reqOptions.method)
 fetchSomeData(reqOptions2.url, reqOptions2.method)
 fetchSomeData(reqOptions3.url, reqOptions3.method)
+
+
+const num = 5
+const stringNum: string = num.toString()
+
+const str = '5'
+const nubString: number = +str  
+
+interface IDepartment {
+   name: string,
+   budget: number
+}
+
+const departmentX: IDepartment = {
+   name: 'web-dev',
+   budget: 5000
+}
+
+interface IProject {
+   name: string,
+   projectBudget: number
+}
+
+function transformDepartment(department: IDepartment, amount: number): IProject {
+   return {
+      name: department.name,
+      projectBudget: amount
+   }
+}
+
+const mainProject: IProject = transformDepartment(departmentX, 4000)
