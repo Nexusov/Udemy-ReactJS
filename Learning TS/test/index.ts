@@ -406,3 +406,36 @@ function repairVehicle(vehicle: Vehicle) {
    }
 }
 
+
+interface ISquare {
+   side: number,
+   area: number
+}
+
+interface IRect {
+   a: number,
+   b: number,
+   area: number
+}
+
+function calcArea(side: number): ISquare // Function Overloading
+function calcArea(a: number, b: number): IRect // Function Overloading
+function calcArea(a: number, b?: number): ISquare | IRect {
+   if (b) {
+      const rect: IRect = {
+         a: a,
+         b: b,
+         area: a * b
+      }
+      return rect
+   } else {
+      const square: ISquare = {
+         side: a,
+         area: a * a
+      }
+      return square
+   }
+}
+
+calcArea(1)
+calcArea(1, 6)
