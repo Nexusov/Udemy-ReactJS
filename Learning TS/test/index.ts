@@ -339,6 +339,7 @@ function printMessage(msg: string | number): void {
 
 
 interface ICar {
+   name: 'car',
    engine: string,
    wheels: {
       number: number,
@@ -347,28 +348,61 @@ interface ICar {
 }
 
 interface IShip {
+   name: 'ship',
    engine: string,
    sail: string,
 }
 
-function isCar(car: ICar | IShip): car is ICar { // type guard or type flow
+interface IAirplane {
+   name: 'airplane',
+   engine: string,
+   wings: string,
+}
+
+interface ISuperAirplane {
+   name: 'smth',
+   engine: string,
+   wings: string,
+}
+
+type Vehicle = ICar | IShip | IAirplane | ISuperAirplane
+
+function isCar(car: Vehicle): car is ICar { // type guard or type flow
    return 'wheels' in car
 }
 
-function isCar2(car: ICar | IShip): car is ICar { // powerfull type guard or type flow
+function isCar2(car: Vehicle): car is ICar { // powerfull type guard or type flow
    return (car as ICar).wheels.number !== undefined
 }
 
-function isShip(ship: IShip | IShip): ship is IShip { // type guard or type flow
+function isShip(ship: Vehicle): ship is IShip { // type guard or type flow
    return 'sail' in ship
 }
 
 
-function repairVehicle(vehicle: ICar | IShip) {
-   if (isCar(vehicle)) {
+function repairVehicle(vehicle: Vehicle) {
+/*    if (isCar(vehicle)) {
       console.log(vehicle.wheels)
    } else if (isShip(vehicle)) {
       console.log(vehicle.sail)
-   } 
+   }  */
+   switch (vehicle.name) {
+      case 'car': 
+            console.log(vehicle.wheels)
+         break;
+      case 'ship': 
+            console.log(vehicle.sail)
+         break;
+      case 'airplane': 
+            console.log(vehicle.wings)
+         break;
+      case 'smth': 
+            console.log(vehicle.wings)
+         break;
+      default: 
+            const smth: never = vehicle
+            console.log('Error')
+         break;
+   }
 }
 
